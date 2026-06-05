@@ -5,9 +5,11 @@ import { createBrowserRouter, redirect } from 'react-router';
 import StatisticPage from '@/pages/StatisticPage';
 import SettingsPage from '@/pages/SettingsPage';
 import NotFoundPage from '@/pages/NotFoundPage';
-import { Routes } from './routes'; 
+import { routes } from './routes';
 import LoginLayout from '@/layouts/LoginLayout';
 import MainLayout from '@/layouts/MainLayout';
+import ExerciseView from '@/modules/Exercise/ExerciseView';
+import ExerciseForm from '@/modules/Exercise/ExerciseForm';
 
 const authGuard = (): undefined => {
   const isAuthenticated = true;
@@ -21,7 +23,7 @@ const authGuard = (): undefined => {
 
 export const router = createBrowserRouter([
   {
-    path: Routes.AUTH,
+    path: routes.auth,
     Component: LoginLayout,
     children: [
       {
@@ -31,7 +33,7 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path: Routes.HOME,
+    path: routes.home,
     loader: authGuard,
     Component: MainLayout,
     children: [
@@ -40,19 +42,36 @@ export const router = createBrowserRouter([
         Component: WorkoutPage,
       },
       {
-        path: Routes.TRAININGS,
+        path: routes.trainings,
         Component: TrainingPage,
       },
       {
-        path: Routes.EXERCISES,
-        Component: ExercisePage,
+        path: 'exercises',
+        children: [
+          {
+            index: true,
+            Component: ExercisePage,
+          },
+          {
+            path: 'new',
+            Component: ExerciseForm,
+          },
+          {
+            path: ':exerciseId',
+            Component: ExerciseView,
+          },
+          {
+            path: ':exerciseId/edit',
+            Component: ExerciseForm,
+          },
+        ],
       },
       {
-        path: Routes.STATISTICS,
+        path: routes.statistics,
         Component: StatisticPage,
       },
       {
-        path: Routes.SETTINGS,
+        path: routes.settings,
         Component: SettingsPage,
       },
       {
