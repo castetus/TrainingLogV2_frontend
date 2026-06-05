@@ -1,23 +1,24 @@
 import { FitnessCenter, SportsGymnastics, Fitbit, Analytics } from '@mui/icons-material';
+import { Routes } from '@/app/routes';
 
 export const navigationLinks = [
   {
-    path: '/',
+    path: Routes.HOME,
     icon: Fitbit,
     label: 'Workout',
   },
   {
-    path: 'trainings',
+    path: Routes.TRAININGS,
     icon: SportsGymnastics,
     label: 'Trainings',
   },
   {
-    path: 'exercises',
+    path: Routes.EXERCISES,
     icon: FitnessCenter,
     label: 'Exercises',
   },
   {
-    path: 'statistics',
+    path: Routes.STATISTICS,
     icon: Analytics,
     label: 'Stat',
   },

@@ -8,14 +8,16 @@ export default function AppNavigation () {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const activePath = `/${location.pathname.split('/')[1]}`;
+
   const changeRoute = (route: string) => {
     navigate(route);
-  }
+  };
 
   return (
     <BottomNavigation
       showLabels
-      value={location.pathname}
+      value={activePath}
       onChange={(event, newValue) => {
         changeRoute(newValue);
       }}
