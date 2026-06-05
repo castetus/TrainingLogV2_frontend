@@ -1,7 +1,7 @@
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import { FitnessCenter } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router';
+import { navigationLinks } from './AppNavigation.constants';
 
 export default function AppNavigation () {
 
@@ -20,7 +20,18 @@ export default function AppNavigation () {
         changeRoute(newValue);
       }}
     >
-      <BottomNavigationAction value="/" label="Nearby" icon={<FitnessCenter />} />
+      {navigationLinks.map((link) => {
+        const Icon = link.icon;
+
+        return (
+          <BottomNavigationAction
+            key={link.path}
+            value={link.path}
+            label={link.label}
+            icon={<Icon />}
+          />
+        );
+      })}
     </BottomNavigation>
   )
 };
