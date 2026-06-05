@@ -4,4 +4,5 @@ export enum Routes {
   EXERCISES = '/exercises',
   STATISTICS = '/statistics',
   SETTINGS = '/settings',
+  AUTH = '/auth',
 };

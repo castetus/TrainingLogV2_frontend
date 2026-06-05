@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router';
-import AppNavigation from './AppNavigation/AppNavigation';
+import AppNavigation from '@/app/AppNavigation/AppNavigation';
 import Box from '@mui/material/Box';
-import AppHeader from './AppHeader';
+import AppHeader from '@/app/AppHeader';
 
-function App() {
+export default function MainLayout() {
 
   return (
     <>
@@ -23,7 +23,5 @@ function App() {
       <AppNavigation />
     </Box>
     </>
-  )
-}
-
-export default App;
+  );
+};
