@@ -7,7 +7,7 @@ import { useExercise, useCreateExercise, useUpdateExercise } from "@/api/exercis
 import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
 
-export default function ExerciseForm ({ id }: { id?: string }) {
+export default function ExerciseForm ({ id }: { id: string }) {
   const navigate = useNavigate();
   const { data: exercise } = useExercise(id);
   const createMutation = useCreateExercise();
