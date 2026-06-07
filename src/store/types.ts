@@ -10,3 +10,10 @@ export interface AuthStore {
   user: User | undefined;
   setUser: (user: User | undefined) => void;
 }
+
+export interface NotificationStore {
+  isShown: boolean;
+  text: string;
+  showNotification: (text?: string) => void;
+  hideNotification: () => void;
+}

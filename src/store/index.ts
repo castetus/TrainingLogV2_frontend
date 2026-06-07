@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { AuthStore } from './types';
+import type { AuthStore, NotificationStore } from './types';
 
 export const useAuthStore = create<AuthStore>((set) => ({
   isAuth: false,
@@ -9,3 +9,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
   setUser: (user) => set({ user }),
 }));
 
+export const useNotificationStore = create<NotificationStore>((set) => ({
+  isShown: false,
+  text: '',
+  showNotification: (text?: string) => set(() => ({ isShown: true, text })),
+  hideNotification: () => set(() => ({ isShown: false, text: '' })),
+}));

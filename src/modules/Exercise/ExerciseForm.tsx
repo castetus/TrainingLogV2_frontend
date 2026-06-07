@@ -54,6 +54,7 @@ export default function ExerciseForm ({ id }: { id?: string }) {
       navigate(routes.exercises);
     } catch (error) {
       console.error(error);
+      console.log('ERROR')
       // показать ошибку пользователю
     }
   };
