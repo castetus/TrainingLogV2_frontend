@@ -1,8 +1,11 @@
-import { useExercises } from '@/api/exercises/exercises.queries';
+import { useDeleteExercise, useExercises } from '@/api/exercises/exercises.queries';
 import type { Exercise } from '@/api/exercises/exercises.types';
+import { routes } from '@/app/routes';
 import { ExerciseType } from '@/shared/enums';
 import { Delete, Edit } from '@mui/icons-material';
-import { Divider, IconButton, ListItem, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Link, ListItem, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 export const mockExercises: Exercise[] = [
   {
@@ -35,6 +38,39 @@ export default function ExercisesList () {
 
   // const { data: exercises } = useExercises();
   const exercises = mockExercises;
+  const navigate = useNavigate();
+  const deleteMutation = useDeleteExercise();
+  const [isDeleteModalOpened, switchDeleteModal] = useState(false);
+  const [exerciseToDelete, setExerciseToDelete] = useState<Exercise>();
+
+  const openEditForm = (id: string) => {
+    navigate(routes.editExercise(id));
+  };
+
+  const openDeleteModal = (id: string) => {
+    const exerciseToDelete = exercises.find((exercise) => exercise.id === id);
+    setExerciseToDelete(exerciseToDelete);
+    switchDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    switchDeleteModal(false);
+    setTimeout(() => {
+      setExerciseToDelete(undefined);
+    }, 100);
+  };
+
+  const handleDelete = async () => {
+    if (!exerciseToDelete) {
+      return;
+    }
+    try {
+      await deleteMutation.mutateAsync(exerciseToDelete?.id);
+      closeDeleteModal();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <>
@@ -46,25 +82,45 @@ export default function ExercisesList () {
                 key={exercise.id}
                 secondaryAction={
                   <>
-                    <IconButton edge="end" aria-label="edit">
+                    <IconButton
+                      edge="end"
+                      onClick={() => openEditForm(exercise.id)}
+                    >
                       <Edit />
                     </IconButton>
-                    <IconButton edge="end" aria-label="delete">
+                    <IconButton
+                      edge="end"
+                      onClick={() => openDeleteModal(exercise.id)}
+                    >
                       <Delete />
                     </IconButton>
-
                   </>
                 }
               >
-                <Typography variant="subtitle2">
+                <Link variant="subtitle2" onClick={() => navigate(routes.exerciseDetails(exercise.id))}>
                   {exercise.name}
-                </Typography>           
+                </Link>           
               </ListItem>
               <Divider  />
             </>
           );
         })
       }
+      <Dialog
+        open={isDeleteModalOpened}
+        onClose={() => closeDeleteModal()}
+        role="alertdialog"
+      >
+        <DialogTitle>
+          {`Delete ${exerciseToDelete?.name}?`}
+        </DialogTitle>
+        <DialogActions>
+          <Button onClick={() => closeDeleteModal()} autoFocus>
+            Cancel
+          </Button>
+          <Button onClick={handleDelete}>Delete</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 };
