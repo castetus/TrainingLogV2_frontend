@@ -1,4 +1,5 @@
 import { routes } from '@/app/routes';
+import { useExerciseSearch } from '@/hooks/useExerciseSearch';
 import ExerciseSearch from '@/modules/Exercise/ExerciseSearch';
 import ExercisesList from '@/modules/Exercise/ExercisesList';
 import AddButton from '@/shared/components/AddButton';
@@ -12,11 +13,26 @@ export default function ExercisePage() {
     navigate(routes.createExercise);
   };
 
+  const {
+    searchString,
+    setSearchString,
+    exercises,
+    isLoading,
+    isFetching,
+  } = useExerciseSearch();
+
   return (
     <>
-      <ExerciseSearch />
+      <ExerciseSearch
+        value={searchString}
+        onSearch={setSearchString}
+      />
 
-      <ExercisesList />
+      <ExercisesList
+        exercises={exercises}
+        isLoading={isLoading}
+        isFetching={isFetching}
+      />
 
       <AddButton onClick={() => openExerciseForm()} />
     </>
