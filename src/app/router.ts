@@ -10,12 +10,19 @@ import LoginLayout from '@/layouts/LoginLayout';
 import MainLayout from '@/layouts/MainLayout';
 import ExerciseView from '@/modules/Exercise/ExerciseView';
 import ExerciseForm from '@/modules/Exercise/ExerciseForm';
+import { useAuthStore } from '@/store';
+import { authService } from '@/api/auth/auth';
 
-const authGuard = (): undefined => {
-  const isAuthenticated = true;
+const authGuard = async (): Promise<undefined> => {
+  const isAuthenticated = useAuthStore.getState().isAuth;
 
   if (!isAuthenticated) {
-    throw redirect('/auth');
+    const currentUser = await authService.getMe();
+    if (!currentUser) {
+      throw redirect('/auth');
+    }
+
+    useAuthStore.getState().setUser(currentUser);
   }
 
   return undefined;

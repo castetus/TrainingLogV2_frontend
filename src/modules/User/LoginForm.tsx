@@ -1,5 +1,5 @@
 import { authService } from "@/api/auth/auth";
-import { useNotificationStore } from "@/store";
+import { useAuthStore, useNotificationStore } from "@/store";
 import { Button, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -8,6 +8,7 @@ export default function LoginForm () {
 
   const navigate = useNavigate();
   const notificationStore = useNotificationStore();
+  const authStore = useAuthStore();
 
   const [form, setForm] = useState({
     login: '',
@@ -26,6 +27,7 @@ export default function LoginForm () {
       return;
     }
 
+    authStore.setAuth(true);
     navigate('/');
   }
 

@@ -1,6 +1,6 @@
 export type User = {
   name: string;
-  ud: string;
+  id: string;
 };
 
 export interface AuthStore {
