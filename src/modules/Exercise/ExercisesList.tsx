@@ -1,12 +1,12 @@
 import { useDeleteExercise } from '@/api/exercises/exercises.queries';
 import type { Exercise } from '@/api/exercises/exercises.types';
 import { routes } from '@/app/routes';
-import { ExerciseType } from '@/shared/enums';
 import { Delete, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Link, ListItem, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { ExercisesListProps } from './Exercise.types';
+import ExerciseTypeIcon from '@/shared/components/ExerciseTypeIcon';
 
 export default function ExercisesList ({ exercises, isLoading, isFetching }: ExercisesListProps) {
 
@@ -52,6 +52,7 @@ export default function ExercisesList ({ exercises, isLoading, isFetching }: Exe
             <>
               <ListItem
                 key={exercise.id}
+                sx={{ paddingLeft: '2px' }}
                 secondaryAction={
                   <>
                     <IconButton
@@ -69,6 +70,7 @@ export default function ExercisesList ({ exercises, isLoading, isFetching }: Exe
                   </>
                 }
               >
+                <ExerciseTypeIcon type={exercise.type} />
                 <Link variant="subtitle2" onClick={() => navigate(routes.exerciseDetails(exercise.id))}>
                   {exercise.name}
                 </Link>           

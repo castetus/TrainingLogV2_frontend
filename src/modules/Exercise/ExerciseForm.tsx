@@ -95,6 +95,7 @@ export default function ExerciseForm () {
         <TextField
           label="Description"
           name="description"
+          value={form.description}
           onChange={(e) => handleChange(e)}
           multiline
           rows={4}
