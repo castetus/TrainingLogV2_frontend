@@ -12,6 +12,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
 export const useNotificationStore = create<NotificationStore>((set) => ({
   isShown: false,
   text: '',
-  showNotification: (text?: string) => set(() => ({ isShown: true, text })),
+  type: 'success',
+  showNotification: ({ text, type }: { text?: string, type?: 'success' | 'error' }) => set(() => ({ isShown: true, text, type })),
   hideNotification: () => set(() => ({ isShown: false, text: '' })),
 }));

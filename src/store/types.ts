@@ -14,6 +14,6 @@ export interface AuthStore {
 export interface NotificationStore {
   isShown: boolean;
   text: string;
-  showNotification: (text?: string) => void;
+  showNotification: ({ text, type }: { text?: string, type?: "success" | "error" }) => void;
   hideNotification: () => void;
 }
