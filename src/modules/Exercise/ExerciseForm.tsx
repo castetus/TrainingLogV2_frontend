@@ -4,14 +4,22 @@ import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { getInitialExercise } from "./Exercise.utils";
 import { ExerciseType } from "@/shared/enums";
 import { useExercise, useCreateExercise, useUpdateExercise } from "@/api/exercises/exercises.queries";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { routes } from "@/app/routes";
 
-export default function ExerciseForm ({ id }: { id: string }) {
+export default function ExerciseForm () {
+
+  const { exerciseId } = useParams();
+
+  if (!exerciseId) {
+    return null;
+  }
+
   const navigate = useNavigate();
-  const { data: exercise } = useExercise(id);
+  const { data: exercise } = useExercise(exerciseId);
   const createMutation = useCreateExercise();
   const updateMutation = useUpdateExercise();
+
 
   useEffect(() => {
     if (!exercise) return;
@@ -42,9 +50,9 @@ export default function ExerciseForm ({ id }: { id: string }) {
     }
 
     try {
-      if (id) {
+      if (exerciseId) {
         await updateMutation.mutateAsync({
-          id,
+          id:exerciseId,
           payload: form,
         });
       } else {

@@ -8,38 +8,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { ExercisesListProps } from './Exercise.types';
 
-export const mockExercises: Exercise[] = [
-  {
-    id: '1',
-    name: 'Bench Press',
-    description: 'Classic chest exercise with a barbell.',
-    type: ExerciseType.WEIGHT,
-    createdAt: '2026-06-07T08:00:00.000Z',
-    updatedAt: '2026-06-07T08:00:00.000Z',
-  },
-  {
-    id: '2',
-    name: 'Plank',
-    description: 'Static core exercise held for time.',
-    type: ExerciseType.TIME,
-    createdAt: '2026-06-07T08:05:00.000Z',
-    updatedAt: '2026-06-07T08:05:00.000Z',
-  },
-  {
-    id: '3',
-    name: 'Pull-Up',
-    description: 'Basic bodyweight pulling exercise.',
-    type: ExerciseType.BASE,
-    createdAt: '2026-06-07T08:10:00.000Z',
-    updatedAt: '2026-06-07T08:10:00.000Z',
-  },
-];
-
 export default function ExercisesList ({ exercises, isLoading, isFetching }: ExercisesListProps) {
 
-  if (!exercises) {
-    exercises = mockExercises;
-  }
   const navigate = useNavigate();
   const deleteMutation = useDeleteExercise();
   const [isDeleteModalOpened, switchDeleteModal] = useState(false);

@@ -1,11 +1,17 @@
 import { useExercise } from '@/api/exercises/exercises.queries';
 import { routes } from '@/app/routes';
 import { Button, Paper, Typography } from '@mui/material'; 
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
-export default function ExerciseView ({ id }: { id: string }) {
+export default function ExerciseView () {
 
-  const { data: exercise } = useExercise(id);
+  const { exerciseId } = useParams();
+
+  if (!exerciseId) {
+    return null;
+  }
+
+  const { data: exercise } = useExercise(exerciseId);
   const navigate = useNavigate();
 
   if (!exercise) {
@@ -25,7 +31,7 @@ export default function ExerciseView ({ id }: { id: string }) {
       </Typography>
 
       <Button
-        onClick={() => navigate(routes.editExercise(id))}
+        onClick={() => navigate(routes.editExercise(exerciseId))}
       >
         Edit
       </Button>
