@@ -40,7 +40,7 @@ export default function LoginForm () {
     >
       <Stack spacing={2}>
         <TextField
-          label="Username"
+          label="Email"
           variant="outlined"
           value={form.login}
           onChange={(e) => setForm({ ...form, login: e.target.value })}

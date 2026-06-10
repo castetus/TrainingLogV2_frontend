@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function RegisterForm () {
 
   const [form, setForm] = useState({
-    login: '',
+    name: '',
     password: '',
     passwordConfirm: '',
     email: '',
@@ -13,7 +13,7 @@ export default function RegisterForm () {
 
 
   const handleSubmit = async () => {
-    if (!form.login || !form.password || !form.passwordConfirm || !form.email) {
+    if (!form.name || !form.password || !form.passwordConfirm || !form.email) {
       return;
     }
 
@@ -21,7 +21,7 @@ export default function RegisterForm () {
       return;
     }
 
-    const response = await authService.register();
+    const response = await authService.register(form);
 
     if (!response) {
       return;
@@ -39,8 +39,8 @@ export default function RegisterForm () {
         <TextField
           label="Username"
           variant="outlined"
-          value={form.login}
-          onChange={(e) => setForm({ ...form, login: e.target.value })}
+          value={form.name}
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
       <TextField
           label="Email"
