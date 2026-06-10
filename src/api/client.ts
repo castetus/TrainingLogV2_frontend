@@ -7,16 +7,14 @@ export const api = axios.create({
 });
 
 api.interceptors.response.use(
-  response => response,
-  error => {
-    const message =
-      error.response?.data?.message ??
-      'Unknown error';
+  (response) => response,
+  (error) => {
+    if (!error.config?.skipGlobalErrorHandler) {
+      useNotificationStore
+        .getState()
+        .showNotification(error.response?.data?.message ?? 'Network error');
+    }
 
-    useNotificationStore
-      .getState()
-      .showNotification(message);
-
-    return Promise.reject(new Error(message));
+    return Promise.reject(error);
   }
 );

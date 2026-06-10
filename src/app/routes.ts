@@ -11,5 +11,6 @@ export const routes = {
     `/exercises/${id}/edit`,
   statistics: '/statistics',
   settings: '/settings',
-  auth: '/auth',
+  login: '/auth',
+  register: '/auth',
 };

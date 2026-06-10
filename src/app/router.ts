@@ -12,31 +12,30 @@ import ExerciseView from '@/modules/Exercise/ExerciseView';
 import ExerciseForm from '@/modules/Exercise/ExerciseForm';
 import { useAuthStore } from '@/store';
 import { authService } from '@/api/auth/auth';
+import LoginPage from '@/pages/LoginPage';
 
 const authGuard = async (): Promise<undefined> => {
   const isAuthenticated = useAuthStore.getState().isAuth;
-
   if (!isAuthenticated) {
-    const currentUser = await authService.getMe();
-    if (!currentUser) {
-      throw redirect('/auth');
+    try {
+      const currentUser = await authService.getMe();
+
+      useAuthStore.setState({ isAuth: true, user: currentUser });
+    } catch {
+      throw redirect(routes.login);
     }
-
-    useAuthStore.getState().setUser(currentUser);
   }
-
-  return undefined;
 };
 
 export const router = createBrowserRouter([
   {
-    path: routes.auth,
+    path: routes.login,
     Component: LoginLayout,
     children: [
       {
         index: true,
-        Component: undefined,
-      }
+        Component: LoginPage,
+      },
     ]
   },
   {
