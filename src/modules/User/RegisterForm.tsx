@@ -1,3 +1,4 @@
+import { authService } from "@/api/auth/auth";
 import { Stack, TextField, Button } from "@mui/material";
 import { useState } from "react";
 
@@ -6,11 +7,34 @@ export default function RegisterForm () {
   const [form, setForm] = useState({
     login: '',
     password: '',
+    passwordConfirm: '',
     email: '',
   });
 
+
+  const handleSubmit = async () => {
+    if (!form.login || !form.password || !form.passwordConfirm || !form.email) {
+      return;
+    }
+
+    if (form.password !== form.passwordConfirm) {
+      return;
+    }
+
+    const response = await authService.register();
+
+    if (!response) {
+      return;
+    }
+  };
+
   return (
-    <form>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleSubmit();
+      }}
+    >
       <Stack spacing={2}>
         <TextField
           label="Username"
@@ -35,8 +59,8 @@ export default function RegisterForm () {
           label="Confirm Password"
           variant="outlined"
           type="password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          value={form.passwordConfirm}
+          onChange={(e) => setForm({ ...form, passwordConfirm: e.target.value })}
         />
         <Button
           variant="contained"
