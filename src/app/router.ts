@@ -1,7 +1,7 @@
 import ExercisePage from '@/pages/ExercisePage';
 import TrainingPage from '@/pages/TrainingPage';
 import WorkoutPage from '@/pages/WorkoutPage';
-import { createBrowserRouter, redirect } from 'react-router';
+import { createBrowserRouter, Outlet, redirect } from 'react-router';
 import StatisticPage from '@/pages/StatisticPage';
 import SettingsPage from '@/pages/SettingsPage';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -52,25 +52,20 @@ export const router = createBrowserRouter([
         Component: TrainingPage,
       },
       {
-        path: 'exercises',
-        children: [
-          {
-            index: true,
-            Component: ExercisePage,
-          },
-          {
-            path: 'new',
-            Component: ExerciseForm,
-          },
-          {
-            path: ':exerciseId',
-            Component: ExerciseView,
-          },
-          {
-            path: ':exerciseId/edit',
-            Component: ExerciseForm,
-          },
-        ],
+        path: routes.exercises,
+        Component: ExercisePage,
+      },
+      {
+        path: routes.createExercise,
+        Component: ExerciseForm,
+      },
+      {
+        path: routes.exerciseDetails(':exerciseId'),
+        Component: ExerciseView,
+      },
+      {
+        path: routes.editExercise(':exerciseId'),
+        Component: ExerciseForm,
       },
       {
         path: routes.statistics,

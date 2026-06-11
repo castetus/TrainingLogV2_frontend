@@ -3,7 +3,7 @@ import { useExerciseSearch } from '@/hooks/useExerciseSearch';
 import ExerciseSearch from '@/modules/Exercise/ExerciseSearch';
 import ExercisesList from '@/modules/Exercise/ExercisesList';
 import AddButton from '@/shared/components/AddButton';
-import { useNavigate } from 'react-router';
+import { Outlet, useNavigate } from 'react-router';
 
 export default function ExercisePage() {
 

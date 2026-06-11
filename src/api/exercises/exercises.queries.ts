@@ -15,11 +15,11 @@ export const useExercises = (params: ExercisesRequestParams) => {
   });
 };
 
-export const useExercise = (id: string) => {
+export const useExercise = (id: string | undefined, options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: exerciseKeys.detail(id),
-    queryFn: () => exercisesApi.getExerciseById(id),
-    enabled: Boolean(id),
+    queryFn: () => exercisesApi.getExerciseById(id as string),
+    enabled: options?.enabled ?? Boolean(id),
   });
 }
 

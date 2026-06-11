@@ -10,13 +10,16 @@ import { routes } from "@/app/routes";
 export default function ExerciseForm () {
 
   const { exerciseId } = useParams();
-
-  if (!exerciseId) {
-    return null;
-  }
+  const isEditMode = Boolean(exerciseId);
 
   const navigate = useNavigate();
-  const { data: exercise } = useExercise(exerciseId);
+
+  const [form, setForm] = useState<ExerciseForm>(getInitialExercise());
+
+  const { data: exercise } = useExercise(exerciseId, {
+    enabled: isEditMode,
+  });
+  
   const createMutation = useCreateExercise();
   const updateMutation = useUpdateExercise();
 
@@ -26,8 +29,6 @@ export default function ExerciseForm () {
 
     setForm({...exercise});
   }, [exercise]);
-
-  const [form, setForm] = useState<ExerciseForm>(getInitialExercise());
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
