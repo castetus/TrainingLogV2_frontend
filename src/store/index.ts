@@ -13,6 +13,6 @@ export const useNotificationStore = create<NotificationStore>((set) => ({
   isShown: false,
   text: '',
   type: 'success',
-  showNotification: ({ text, type }: { text?: string, type?: 'success' | 'error' }) => set(() => ({ isShown: true, text, type })),
+  showNotification: ({ text, type = 'success' }: { text?: string, type?: 'success' | 'error' }) => set(() => ({ isShown: true, text, type })),
   hideNotification: () => set(() => ({ isShown: false, text: '' })),
 }));

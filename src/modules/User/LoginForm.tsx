@@ -1,65 +1,94 @@
 import { authService } from "@/api/auth/auth";
-import { useAuthStore, useNotificationStore } from "@/store";
-import { Button, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useAuthStore } from "@/store";
+import { Alert, Button, Stack, TextField } from "@mui/material";
 import { useNavigate } from "react-router";
+import { z } from 'zod';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
 
 export default function LoginForm () {
 
   const navigate = useNavigate();
-  const notificationStore = useNotificationStore();
   const authStore = useAuthStore();
 
-  const [form, setForm] = useState({
-    login: '',
-    password: '',
+  const loginSchema = z.object({
+    login: z
+      .string()
+      .min(1, 'Email обязателен')
+      .email('Некорректный email'),
+
+    password: z
+      .string()
+      .min(1, 'Пароль обязателен'),
   });
 
-  const handleSubmit = async () => {
-    if (!form.login || !form.password) {
-      return;
+  type LoginFormValues = z.infer<typeof loginSchema>;
+
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      login: '',
+      password: '',
+    },
+  });
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = form;
+
+  const loginUser = async (data: LoginFormValues) => {
+    try {
+      await authService.login(data);
+      authStore.setAuth(true);
+      navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError('root', {
+          type: 'server',
+          message: error.response?.data?.message,
+        });
+      }
     }
-
-    const succesfulLogin = await authService.login(form);
-
-    if (!succesfulLogin) {
-      notificationStore.showNotification({ text: 'Login failed', type: 'error' });
-      return;
-    }
-
-    authStore.setAuth(true);
-    navigate('/');
-  }
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
-    >
-      <Stack spacing={2}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          value={form.login}
-          onChange={(e) => setForm({ ...form, login: e.target.value })}
+    <>
+      {errors.root?.message && (
+        <Alert severity="error">
+          {errors.root.message}
+        </Alert>
+      )}
+      <form onSubmit={handleSubmit(loginUser)}>
+        <Stack spacing={2}>
+          <TextField
+            label="Email"
+            variant="outlined"
+          error={!!errors.login}
+          helperText={errors.login?.message}
+          {...register('login')}
         />
         <TextField
           label="Password"
           variant="outlined"
           type="password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          {...register('password')}
         />
         <Button
           variant="contained"
           color="primary"
           type="submit"
+          loading={isSubmitting}
         >
           Login
         </Button>
       </Stack>
     </form>
+    </>
   )
 };

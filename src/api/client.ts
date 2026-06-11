@@ -12,7 +12,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
-    if (status === 401) {
+    if (status === 401 && !error.config?.skipAuthRedirect) {
       useAuthStore.getState().logout();
 
       window.location.href = routes.login;
@@ -20,10 +20,13 @@ api.interceptors.response.use(
       return Promise.reject(error);
     }
     if (!error.config?.skipGlobalErrorHandler) {
+      console.log('API Error:', error, 'Response:', error.response);
       useNotificationStore
         .getState()
-        .showNotification(error.response?.data?.message ?? 'Network error');
+        .showNotification({ text: error.response?.data?.message ?? 'Network error', type: 'error' });
+      console.log('notification state after:', useNotificationStore.getState());
     }
+
 
     return Promise.reject(error);
   }

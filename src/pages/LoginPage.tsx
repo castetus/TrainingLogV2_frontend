@@ -1,6 +1,6 @@
 import LoginForm from "@/modules/User/LoginForm";
 import RegisterForm from "@/modules/User/RegisterForm";
-import { Container, Link, Stack } from "@mui/material";
+import { Box, Container, Link, Stack } from "@mui/material";
 import { useState } from "react";
 
 export default function LoginPage () {
@@ -11,18 +11,24 @@ export default function LoginPage () {
     <Container
       sx={{
         width: '300px',
-        margin: 'auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        padding: '30px 0',
       }}
     >
-      <Stack
-        spacing={6}
-      >
-      { isRegistering ? <RegisterForm /> : <LoginForm /> }
-
+      <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+        <Stack
+          spacing={6}
+        >
+          {isRegistering ? <RegisterForm /> : <LoginForm />}
+        </Stack>
+      </Box>
       <Link onClick={() => setIsRegistering(!isRegistering)}>
-        { isRegistering ? 'Already have an account? Login' : 'Don\'t have an account? Register' }
+        {isRegistering ? 'Already have an account? Login' : 'Don\'t have an account? Register'}
       </Link>
-      </Stack>
     </Container>
   );
 };

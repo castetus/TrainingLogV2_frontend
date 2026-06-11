@@ -1,6 +1,6 @@
 import { authService } from '@/api/auth/auth';
-import { AccountCircle } from '@mui/icons-material';
-import { Box, IconButton, Menu, MenuItem } from '@mui/material';
+import { AccountCircle, Logout, Settings } from '@mui/icons-material';
+import { Box, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
@@ -12,6 +12,8 @@ export default function AppHeader () {
 
   const navigate = useNavigate();
   const authStore = useAuthStore();
+
+  const user = useAuthStore((state) => state.user);
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -64,9 +66,25 @@ export default function AppHeader () {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={navigateToSettings}>Settings</MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
-          </Menu>
+            <MenuItem disabled>
+              <ListItemIcon>
+                <AccountCircle fontSize="small" />
+              </ListItemIcon>
+              {user?.name}
+            </MenuItem>
+          <MenuItem onClick={navigateToSettings}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+          <MenuItem onClick={handleLogout}>
+            <ListItemIcon>
+              <Logout fontSize="small" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );
