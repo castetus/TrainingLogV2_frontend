@@ -2,28 +2,15 @@ import { authService } from "@/api/auth/auth";
 import { useAuthStore } from "@/store";
 import { Alert, Button, Stack, TextField } from "@mui/material";
 import { useNavigate } from "react-router";
-import { z } from 'zod';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { loginSchema, type LoginFormValues } from "./User.validation";
 
 export default function LoginForm () {
 
   const navigate = useNavigate();
   const authStore = useAuthStore();
-
-  const loginSchema = z.object({
-    login: z
-      .string()
-      .min(1, 'Email обязателен')
-      .email('Некорректный email'),
-
-    password: z
-      .string()
-      .min(1, 'Пароль обязателен'),
-  });
-
-  type LoginFormValues = z.infer<typeof loginSchema>;
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -67,24 +54,24 @@ export default function LoginForm () {
           <TextField
             label="Email"
             variant="outlined"
-          error={!!errors.login}
-          helperText={errors.login?.message}
-          {...register('login')}
-        />
-        <TextField
-          label="Password"
-          variant="outlined"
-          type="password"
-          error={!!errors.password}
-          helperText={errors.password?.message}
-          {...register('password')}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          loading={isSubmitting}
-        >
+            error={!!errors.login}
+            helperText={errors.login?.message}
+            {...register('login')}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            error={!!errors.password}
+            helperText={errors.password?.message}
+            {...register('password')}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            loading={isSubmitting}
+          >
           Login
         </Button>
       </Stack>

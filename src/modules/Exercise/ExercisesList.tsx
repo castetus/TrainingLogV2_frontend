@@ -3,7 +3,7 @@ import type { Exercise } from '@/api/exercises/exercises.types';
 import { routes } from '@/app/routes';
 import { Delete, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Link, ListItem, Typography } from '@mui/material';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { ExercisesListProps } from './Exercise.types';
 import ExerciseTypeIcon from '@/shared/components/ExerciseTypeIcon';
@@ -49,9 +49,8 @@ export default function ExercisesList ({ exercises, isLoading, isFetching }: Exe
       {
         exercises && exercises.map((exercise: Exercise) => {
           return (
-            <>
+            <Fragment key={exercise.id}>
               <ListItem
-                key={exercise.id}
                 sx={{ paddingLeft: '2px' }}
                 secondaryAction={
                   <>
@@ -76,7 +75,7 @@ export default function ExercisesList ({ exercises, isLoading, isFetching }: Exe
                 </Link>           
               </ListItem>
               <Divider  />
-            </>
+            </Fragment>
           );
         })
       }

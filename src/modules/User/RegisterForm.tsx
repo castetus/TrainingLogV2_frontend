@@ -1,75 +1,92 @@
 import { authService } from "@/api/auth/auth";
-import { Stack, TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { Stack, TextField, Button, Alert } from "@mui/material";
+import { registerSchema } from "./User.validation";
+import type { RegisterFormValues } from "./User.validation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useNavigate } from "react-router";
+import { useAuthStore } from "@/store";
 
 export default function RegisterForm () {
 
-  const [form, setForm] = useState({
-    name: '',
-    password: '',
-    passwordConfirm: '',
-    email: '',
+  const navigate = useNavigate();
+  const authStore = useAuthStore();
+
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+    },
   });
 
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isSubmitting },
+  } = form;
 
-  const handleSubmit = async () => {
-    if (!form.name || !form.password || !form.passwordConfirm || !form.email) {
-      return;
-    }
-
-    if (form.password !== form.passwordConfirm) {
-      return;
-    }
-
-    const response = await authService.register(form);
-
-    if (!response) {
-      return;
+  const onSubmit = async (data: RegisterFormValues) => {
+    try {
+      await authService.register(data);
+      authStore.setAuth(true);
+      navigate('/');
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError('root', {
+          type: 'server',
+          message: error.response?.data?.message,
+        });
+      }
     }
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleSubmit();
-      }}
-    >
-      <Stack spacing={2}>
-        <TextField
-          label="Username"
-          variant="outlined"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-        />
-      <TextField
-          label="Email"
-          variant="outlined"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-        />
-        <TextField
-          label="Password"
-          variant="outlined"
-          type="password"
-          value={form.password}
-          onChange={(e) => setForm({ ...form, password: e.target.value })}
-        />
-        <TextField
-          label="Confirm Password"
-          variant="outlined"
-          type="password"
-          value={form.passwordConfirm}
-          onChange={(e) => setForm({ ...form, passwordConfirm: e.target.value })}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-        >
-          Register
-        </Button>
-      </Stack>
-    </form>
+    <>
+      {errors.root?.message && (
+        <Alert severity="error">
+          {errors.root.message}
+        </Alert>
+      )}
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={2}>
+          <TextField
+            label="Username"
+            variant="outlined"
+            {...register('name')}
+          />
+          <TextField
+            label="Email"
+            variant="outlined"
+            {...register('email')}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            {...register('password')}
+          />
+          <TextField
+            label="Confirm Password"
+            variant="outlined"
+            type="password"
+            {...register('passwordConfirm')}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            loading={isSubmitting}
+          >
+            Register
+          </Button>
+        </Stack>
+      </form>
+    </>
   );
 };
