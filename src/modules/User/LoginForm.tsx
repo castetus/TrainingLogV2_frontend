@@ -6,11 +6,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { loginSchema, type LoginFormValues } from "./User.validation";
+import { Google } from "@mui/icons-material";
+import { useGoogleAuth } from "./useGoogleAuth";
 
 export default function LoginForm () {
 
   const navigate = useNavigate();
   const authStore = useAuthStore();
+
+  const { openGoogleWindow } = useGoogleAuth();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -74,6 +78,13 @@ export default function LoginForm () {
           >
           Login
         </Button>
+          <Button
+            variant="contained"
+            onClick={openGoogleWindow}
+          >
+            <Google sx={{marginRight: '8px'}} />
+            Continue with Google
+          </Button>
       </Stack>
     </form>
     </>

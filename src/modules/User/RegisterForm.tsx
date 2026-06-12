@@ -7,11 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useAuthStore } from "@/store";
+import { Google } from "@mui/icons-material";
+import { useGoogleAuth } from "./useGoogleAuth";
 
 export default function RegisterForm () {
 
   const navigate = useNavigate();
   const authStore = useAuthStore();
+
+  const { openGoogleWindow } = useGoogleAuth();
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -84,6 +88,13 @@ export default function RegisterForm () {
             loading={isSubmitting}
           >
             Register
+          </Button>
+          <Button
+            variant="contained"
+            onClick={openGoogleWindow}
+          >
+            <Google sx={{marginRight: '8px'}} />
+            Continue with Google
           </Button>
         </Stack>
       </form>
