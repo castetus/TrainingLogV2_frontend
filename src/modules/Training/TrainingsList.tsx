@@ -1,6 +1,6 @@
 import { Divider, IconButton, Link, ListItem } from "@mui/material";
 import type { Training, TrainingListProps } from "./Training.types";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import { Fragment, useState } from 'react';
 import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
@@ -13,11 +13,7 @@ export default function TrainingsList ({ trainings, isLoading, isFetching }: Tra
   const deleteMutation = useDeleteTraining();
   const [isDeleteModalOpened, switchDeleteModal] = useState(false);
   const [trainingToDelete, setTrainingToDelete] = useState<Training>();
-
-  const openEditForm = (id: string) => {
-    navigate(routes.trainingDetails(id));
-  };
-
+  
   const openDeleteModal = (training: Training) => {
     setTrainingToDelete(training);
     switchDeleteModal(true);
@@ -45,12 +41,6 @@ export default function TrainingsList ({ trainings, isLoading, isFetching }: Tra
                 sx={{ paddingLeft: '2px' }}
                 secondaryAction={
                   <>
-                    <IconButton
-                      edge="end"
-                      onClick={() => openEditForm(training.id)}
-                    >
-                      <Edit />
-                    </IconButton>
                     <IconButton
                       edge="end"
                       onClick={() => openDeleteModal(training)}

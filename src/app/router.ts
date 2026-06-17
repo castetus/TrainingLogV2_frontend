@@ -13,6 +13,7 @@ import ExerciseForm from '@/modules/Exercise/ExerciseForm';
 import { useAuthStore } from '@/store';
 import { authService } from '@/api/auth/auth';
 import LoginPage from '@/pages/LoginPage';
+import TrainingDetails from '@/modules/Training/TrainingDetails';
 
 const authGuard = async (): Promise<undefined> => {
   const isAuthenticated = useAuthStore.getState().isAuth;
@@ -50,6 +51,14 @@ export const router = createBrowserRouter([
       {
         path: routes.trainings,
         Component: TrainingPage,
+      },
+      {
+        path: routes.trainingDetails(':trainingId'),
+        Component: TrainingDetails,
+      },
+      {
+        path: routes.createTraining,
+        Component: TrainingDetails,
       },
       {
         path: routes.exercises,
