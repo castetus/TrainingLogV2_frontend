@@ -7,6 +7,7 @@ import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { ExercisesListProps } from './Exercise.types';
 import ExerciseTypeIcon from '@/shared/components/ExerciseTypeIcon';
+import DeleteModal from '@/shared/components/DeleteModal';
 
 export default function ExercisesList ({ exercises, isLoading, isFetching }: ExercisesListProps) {
 
@@ -79,21 +80,12 @@ export default function ExercisesList ({ exercises, isLoading, isFetching }: Exe
           );
         })
       }
-      <Dialog
-        open={isDeleteModalOpened}
+      <DeleteModal
+        isOpened={isDeleteModalOpened}
+        entityName={exerciseToDelete?.name ?? ''}
         onClose={() => closeDeleteModal()}
-        role="alertdialog"
-      >
-        <DialogTitle>
-          {`Delete ${exerciseToDelete?.name}?`}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={() => closeDeleteModal()} autoFocus>
-            Cancel
-          </Button>
-          <Button onClick={handleDelete}>Delete</Button>
-        </DialogActions>
-      </Dialog>
+        onDelete={() => handleDelete()}
+      />
     </>
   );
 };
