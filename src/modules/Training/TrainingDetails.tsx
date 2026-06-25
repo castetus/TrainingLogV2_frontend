@@ -6,7 +6,9 @@ import { useTraining } from "@/api/trainings/trainings.queries";
 import TrainingExercise from "./TrainingExercise";
 import type { TrainingDetailsResponse } from "@/api/trainings/trainings.types";
 import { useFieldArray, useForm } from "react-hook-form";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
+import { mockTrainingExercises } from "./mock";
+import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
 
 export default function TrainingDetails () {
 
@@ -20,7 +22,7 @@ export default function TrainingDetails () {
   const form = useForm<TrainingDetailsResponse>({
     defaultValues: {
       name: '',
-      exercises: [],
+      exercises: mockTrainingExercises,
     },
   });
 
@@ -38,6 +40,14 @@ export default function TrainingDetails () {
     control: form.control,
     name: 'exercises',
   });
+
+  const handleDragEnd = (dropResult: DropResult) => {
+    const { source, destination } = dropResult;
+    if (!destination || source.index === destination.index) {
+      return;
+    }
+    move(source.index, destination.index);
+  };
 
   const onExerciseSelect = (exercise: Exercise | null) => {
     if (!exercise) {
@@ -58,16 +68,37 @@ export default function TrainingDetails () {
         onSelect={onExerciseSelect}
       />
 
-      {fields.map((field, index) => {
-        return (
-          <TrainingExercise
-            key={field.id}
-            exercise={field}
-            index={index}
-            onDelete={() => remove(index)}
-          />
-        );
-      })}
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="training-exercises">
+          {(provided) => (
+            <Box ref={provided.innerRef} {...provided.droppableProps}>
+              {fields.map((field, index) => (
+                <Draggable
+                  key={field.exerciseId}
+                  draggableId={field.exerciseId}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                    >
+                      <TrainingExercise
+                        dragHandleProps={provided.dragHandleProps}
+                        exercise={field}
+                        index={index}
+                        onDelete={() => remove(index)}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+
+              {provided.placeholder}
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
     </Stack>
   );
 };

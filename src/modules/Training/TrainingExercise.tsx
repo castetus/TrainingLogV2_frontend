@@ -2,7 +2,7 @@ import { Delete, ZoomOutMap } from "@mui/icons-material";
 import { IconButton, ListItem, Stack, TextField, Typography } from "@mui/material";
 import type { TrainingExerciseProps } from "./Training.types";
 
-export default function TrainingExercise ({ exercise, onDelete }: TrainingExerciseProps) {
+export default function TrainingExercise ({ exercise, onDelete, dragHandleProps }: TrainingExerciseProps) {
 
   return (
     <>
@@ -13,7 +13,13 @@ export default function TrainingExercise ({ exercise, onDelete }: TrainingExerci
           <IconButton edge="end" aria-label="delete">
             <Delete onClick={() => onDelete(exercise.exerciseId)} />
           </IconButton>
-          <IconButton edge="end" aria-label="move">
+          <IconButton edge="end" aria-label="move"
+            {...dragHandleProps}
+            sx={{
+              cursor: 'grab',
+              touchAction: 'none',
+            }}
+          >
             <ZoomOutMap />
           </IconButton>
           </>

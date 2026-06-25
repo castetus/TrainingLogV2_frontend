@@ -1,5 +1,6 @@
 import type { Exercise } from "@/api/exercises/exercises.types";
 import type { ExerciseType } from "@/shared/enums";
+import type { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 
 export type Training = {
   id: string;
@@ -20,6 +21,7 @@ export type TrainingExerciseProps = {
   exercise: TrainingExerciseDetails;
   index: number;
   onDelete: (exerciseId: string) => void;
+  dragHandleProps: DraggableProvidedDragHandleProps | null;
 }
 
 export type TrainingExerciseDetails = {
