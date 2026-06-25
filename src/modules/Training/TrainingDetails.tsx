@@ -59,6 +59,7 @@ export default function TrainingDetails () {
       exerciseName: exercise.name,
       exerciseType: exercise.type,
       position: fields.length + 1,
+      plannedSets: 1,
     });
   };
   

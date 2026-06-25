@@ -16,6 +16,7 @@ export const mockTrainingExercises: TrainingExerciseDetails[] = [
     exerciseName: 'Pull Ups',
     exerciseType: ExerciseType.BASE,
     position: 2,
+    plannedSets: 4,
     plannedReps: 12,
   },
   {
@@ -23,6 +24,7 @@ export const mockTrainingExercises: TrainingExerciseDetails[] = [
     exerciseName: 'Plank',
     exerciseType: ExerciseType.TIME,
     position: 3,
+    plannedSets: 4,
     plannedTime: 90,
   },
   {
@@ -39,6 +41,7 @@ export const mockTrainingExercises: TrainingExerciseDetails[] = [
     exerciseName: 'Push Ups',
     exerciseType: ExerciseType.BASE,
     position: 5,
+    plannedSets: 4,
     plannedReps: 20,
   },
 ];
