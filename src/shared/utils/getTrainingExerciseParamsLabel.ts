@@ -24,7 +24,5 @@ export const getTrainingExerciseParamsLabel = (exercise: TrainingExerciseDetails
         paramsArray = [sets];
     }
 
-    console.log(exercise, paramsArray)
-
     return paramsArray.filter((item) => item).join(' x ');
 };

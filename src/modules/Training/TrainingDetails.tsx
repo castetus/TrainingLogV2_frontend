@@ -9,11 +9,18 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { Box, Stack } from "@mui/material";
 import { mockTrainingExercises } from "./mock";
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
+import TrainingExerciseParamsModal from "./TrainingExerciseParamsModal";
+import type { TrainingExerciseDetails } from "./Training.types";
 
 export default function TrainingDetails () {
 
   const { trainingId } = useParams();
   const isEdit = Boolean(trainingId);
+
+  const [isParamsModalOpened, setParamsModalOpened] = useState(false);
+  const [isEditExercise, setExerciseEditing] = useState(false);
+  const [selectedExercise, setSelectedExercise] = useState<TrainingExerciseDetails | undefined>();
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const { data: training } = useTraining(trainingId, {
     enabled: isEdit,
@@ -36,7 +43,7 @@ export default function TrainingDetails () {
     });
   }, [training]);
 
-  const { fields, append, remove, move } = useFieldArray({
+  const { fields, append, remove, move, update } = useFieldArray({
     control: form.control,
     name: 'exercises',
   });
@@ -49,21 +56,57 @@ export default function TrainingDetails () {
     move(source.index, destination.index);
   };
 
+  const openParamsModal = (isEdit: boolean = false) => {
+    setExerciseEditing(isEdit);
+    setParamsModalOpened(true);
+  };
+
+  const closeParamsModal = () => {
+    setSelectedExercise(undefined);
+    setParamsModalOpened(false);
+  }
+
+  const onExerciseSave = (exercise: TrainingExerciseDetails) => {
+    if (!isEditExercise) {
+      append(exercise);
+    } else {
+      update(editingIndex, exercise);
+    }
+    
+    closeParamsModal();
+  };
+
+  const handleEdit = (index: number) => {
+    const exercise = fields[index];
+    setSelectedExercise(exercise);
+    setEditingIndex(index);
+    openParamsModal(true);
+  };
+
+  const handleDelete = (index: number) => {
+    remove(index);
+  };
+
   const onExerciseSelect = (exercise: Exercise | null) => {
     if (!exercise) {
       return;
     }
 
-    append({
+    const exerciseForAdd: TrainingExerciseDetails = {
       exerciseId: exercise.id,
       exerciseName: exercise.name,
       exerciseType: exercise.type,
       position: fields.length + 1,
-      plannedSets: 1,
-    });
+      plannedSets: 1, 
+    };
+
+    setSelectedExercise(exerciseForAdd);
+
+    openParamsModal();
   };
   
   return (
+    <>
     <Stack spacing={2}>
       <TrainingExerciseSelect
         onSelect={onExerciseSelect}
@@ -88,7 +131,8 @@ export default function TrainingDetails () {
                         dragHandleProps={provided.dragHandleProps}
                         exercise={field}
                         index={index}
-                        onDelete={() => remove(index)}
+                        onEdit={() => handleEdit(index)}
+                        onDelete={() => handleDelete(index)}
                       />
                     </div>
                   )}
@@ -101,5 +145,13 @@ export default function TrainingDetails () {
         </Droppable>
       </DragDropContext>
     </Stack>
+    {selectedExercise && <TrainingExerciseParamsModal
+      isEdit={isEditExercise}
+      open={isParamsModalOpened}
+      handleClose={() => setParamsModalOpened(false)}
+      exercise={selectedExercise}
+      handleSave={onExerciseSave}
+    />}
+    </>
   );
 };

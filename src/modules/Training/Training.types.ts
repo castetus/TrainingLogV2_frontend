@@ -21,6 +21,7 @@ export type TrainingExerciseProps = {
   exercise: TrainingExerciseDetails;
   index: number;
   onDelete: (exerciseId: string) => void;
+  onEdit: (exerciseId: string) => void;
   dragHandleProps: DraggableProvidedDragHandleProps | null;
 }
 
@@ -36,3 +37,11 @@ export type TrainingExerciseDetails = {
   plannedWeight?: number;
   plannedTime?: number;
 };
+
+export type TrainingExerciseParamsModalProps = {
+  open: boolean;
+  handleClose: () => void;
+  exercise: TrainingExerciseDetails;
+  handleSave: (exercise: TrainingExerciseDetails) => void;
+  isEdit: boolean;
+}

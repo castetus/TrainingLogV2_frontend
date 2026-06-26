@@ -19,9 +19,13 @@ export default function TrainingExerciseSelect ({ onSelect }: TrainingExerciseSe
     }
     onSelect(value);
     setSearchString('');
+
+    console.log(searchString)
   };
 
   return (
+    <>
+    {searchString}
     <Autocomplete
       disablePortal
       options={exercises}
@@ -33,5 +37,6 @@ export default function TrainingExerciseSelect ({ onSelect }: TrainingExerciseSe
       onInputChange={(_, value) => setSearchString(value)}
       renderInput={(params) => <TextField {...params} label="Add exercise" />}
     />
+    </>
   );
 };

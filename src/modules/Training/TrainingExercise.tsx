@@ -1,11 +1,9 @@
-import { Delete, Reorder } from "@mui/icons-material";
-import { Box, Card, CardContent, IconButton, ListItem, Stack, Typography } from "@mui/material";
+import { Delete, Edit, Reorder } from "@mui/icons-material";
+import { Box, Card, CardContent, IconButton, Typography } from "@mui/material";
 import type { TrainingExerciseProps } from "./Training.types";
-import { ExerciseType } from "@/shared/enums";
-import { convertSecondsToMinutes } from "@/shared/utils/convertSecondsToMinutes";
 import { getTrainingExerciseParamsLabel } from "@/shared/utils/getTrainingExerciseParamsLabel";
 
-export default function TrainingExercise ({ exercise, onDelete, dragHandleProps }: TrainingExerciseProps) {
+export default function TrainingExercise ({ exercise, onDelete, onEdit, dragHandleProps }: TrainingExerciseProps) {
 
   const paramsLabel = getTrainingExerciseParamsLabel(exercise);
 
@@ -37,12 +35,14 @@ export default function TrainingExercise ({ exercise, onDelete, dragHandleProps 
                 {exercise.exerciseName}
               </Typography>
             </Box>
-
-
-
-            <IconButton onClick={() => onDelete(exercise.exerciseId)}>
-              <Delete />
-            </IconButton>
+            <Box>
+              <IconButton onClick={() => onEdit(exercise.exerciseId)}>
+                <Edit />
+              </IconButton>
+              <IconButton onClick={() => onDelete(exercise.exerciseId)}>
+                <Delete />
+              </IconButton>
+            </Box>
           </Box>
 
           <Typography variant="body2" color="text.secondary" sx={{ pl: 4 }}>
