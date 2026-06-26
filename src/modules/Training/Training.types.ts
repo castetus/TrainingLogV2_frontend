@@ -45,3 +45,8 @@ export type TrainingExerciseParamsModalProps = {
   handleSave: (exercise: TrainingExerciseDetails) => void;
   isEdit: boolean;
 }
+
+export type TrainingFormValues = {
+  name: string;
+  exercises: TrainingExerciseDetails[];
+};

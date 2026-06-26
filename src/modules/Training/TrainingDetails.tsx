@@ -2,20 +2,22 @@ import { useParams } from "react-router";
 import TrainingExerciseSelect from "./TrainingExerciseSelect";
 import { useEffect, useState } from "react";
 import type { Exercise } from "@/api/exercises/exercises.types";
-import { useTraining } from "@/api/trainings/trainings.queries";
+import { useTraining, useCreateTraining, useUpdateTraining } from "@/api/trainings/trainings.queries";
 import TrainingExercise from "./TrainingExercise";
 import type { TrainingDetailsResponse } from "@/api/trainings/trainings.types";
 import { useFieldArray, useForm } from "react-hook-form";
-import { Box, Stack } from "@mui/material";
-import { mockTrainingExercises } from "./mock";
+import { Box, Fab, Stack, TextField } from "@mui/material";
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
 import TrainingExerciseParamsModal from "./TrainingExerciseParamsModal";
-import type { TrainingExerciseDetails } from "./Training.types";
+import type { TrainingExerciseDetails, TrainingFormValues } from "./Training.types";
 
 export default function TrainingDetails () {
 
   const { trainingId } = useParams();
   const isEdit = Boolean(trainingId);
+
+  const createMutation = useCreateTraining();
+  const updateMutation = useUpdateTraining();
 
   const [isParamsModalOpened, setParamsModalOpened] = useState(false);
   const [isEditExercise, setExerciseEditing] = useState(false);
@@ -27,10 +29,10 @@ export default function TrainingDetails () {
     enabled: isEdit,
   });
 
-  const form = useForm<TrainingDetailsResponse>({
+  const form = useForm<TrainingFormValues>({
     defaultValues: {
       name: '',
-      exercises: mockTrainingExercises,
+      exercises: [],
     },
   });
 
@@ -106,10 +108,37 @@ export default function TrainingDetails () {
 
     openParamsModal();
   };
+
+  const mapFormToPayload = (values: TrainingFormValues) => ({
+    name: values.name,
+    exercises: values.exercises.map((exercise, index) => ({
+      ...exercise,
+      position: index + 1,
+    })),
+  });
+
+  const saveTraining = async (values: TrainingFormValues) => {
+    const payload = mapFormToPayload(values);
+    try {
+      if (isEdit) {
+        await updateMutation.mutateAsync({
+          id: trainingId,
+          payload,
+        });
+      } else {
+        await createMutation.mutateAsync(payload);
+      }
+
+      form.reset(values);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   
   return (
-    <>
+    <form onSubmit={form.handleSubmit(saveTraining)}>
     <Stack spacing={2}>
+      <TextField {...form.register('name')} />
       <TrainingExerciseSelect
         key={selectKey}
         onSelect={onExerciseSelect}
@@ -155,6 +184,21 @@ export default function TrainingDetails () {
       exercise={selectedExercise}
       handleSave={onExerciseSave}
     />}
-    </>
+      {form.formState.isDirty &&
+        <Fab
+          color="primary"
+          aria-label="save"
+          variant="extended"
+          type="submit"
+          sx={{
+            position: 'fixed',
+            bottom: '72px',
+            left: '50%',
+            transform: 'translate(-50%)',
+          }}
+        >
+          Save changes
+        </Fab>}
+    </form>
   );
 };
