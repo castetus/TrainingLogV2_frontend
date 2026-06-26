@@ -21,6 +21,7 @@ export default function TrainingDetails () {
   const [isEditExercise, setExerciseEditing] = useState(false);
   const [selectedExercise, setSelectedExercise] = useState<TrainingExerciseDetails | undefined>();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [selectKey, setSelectKey] = useState(0);
 
   const { data: training } = useTraining(trainingId, {
     enabled: isEdit,
@@ -69,6 +70,7 @@ export default function TrainingDetails () {
   const onExerciseSave = (exercise: TrainingExerciseDetails) => {
     if (!isEditExercise) {
       append(exercise);
+      setSelectKey((key) => key + 1);
     } else {
       update(editingIndex, exercise);
     }
@@ -109,6 +111,7 @@ export default function TrainingDetails () {
     <>
     <Stack spacing={2}>
       <TrainingExerciseSelect
+        key={selectKey}
         onSelect={onExerciseSelect}
       />
 

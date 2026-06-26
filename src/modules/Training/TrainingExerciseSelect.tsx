@@ -19,13 +19,10 @@ export default function TrainingExerciseSelect ({ onSelect }: TrainingExerciseSe
     }
     onSelect(value);
     setSearchString('');
-
-    console.log(searchString)
   };
 
   return (
     <>
-    {searchString}
     <Autocomplete
       disablePortal
       options={exercises}
