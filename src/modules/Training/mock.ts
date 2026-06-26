@@ -45,3 +45,18 @@ export const mockTrainingExercises: TrainingExerciseDetails[] = [
     plannedReps: 20,
   },
 ];
+
+export const mockTrainings = [
+  {
+    id: '1',
+    name: 'Chest & Biceps',
+  },
+  {
+    id: '2',
+    name: 'Back & Triceps',
+  },
+  {
+    id: '3',
+    name: 'Home Workout',
+  },
+];

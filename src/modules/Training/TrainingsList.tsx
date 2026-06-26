@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
 import DeleteModal from "@/shared/components/DeleteModal";
 import { useDeleteTraining } from "@/api/trainings/trainings.queries";
+import Loader from '@/shared/components/Loader';
+import EmptyState from "@/shared/components/EmptyState";
 
 export default function TrainingsList ({ trainings, isLoading, isFetching }: TrainingListProps) {
 
@@ -29,6 +31,18 @@ export default function TrainingsList ({ trainings, isLoading, isFetching }: Tra
     } catch (e) {
       console.log(e);
     }
+  };
+
+  if (isLoading || isFetching) {
+    return (
+      <Loader />
+    );
+  };
+
+  if (!trainings.length) {
+    return (
+      <EmptyState />
+    );
   };
 
   return (
