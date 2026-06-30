@@ -1,7 +1,7 @@
 import ExercisePage from '@/pages/ExercisePage';
 import TrainingPage from '@/pages/TrainingPage';
 import WorkoutPage from '@/pages/WorkoutPage';
-import { createBrowserRouter, Outlet, redirect } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
 import StatisticPage from '@/pages/StatisticPage';
 import SettingsPage from '@/pages/SettingsPage';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -14,6 +14,8 @@ import { useAuthStore } from '@/store';
 import { authService } from '@/api/auth/auth';
 import LoginPage from '@/pages/LoginPage';
 import TrainingDetails from '@/modules/Training/TrainingDetails';
+import WorkoutForm from '@/modules/Workout/WorkoutForm';
+import WorkoutDetails from '@/modules/Workout/WorkoutDetails';
 
 const authGuard = async (): Promise<undefined> => {
   const isAuthenticated = useAuthStore.getState().isAuth;
@@ -47,6 +49,14 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: WorkoutPage,
+      },
+      {
+        path: routes.startWorkout,
+        Component: WorkoutForm,
+      },
+      {
+        path: routes.workout(':workoutId'),
+        Component: WorkoutDetails,
       },
       {
         path: routes.trainings,

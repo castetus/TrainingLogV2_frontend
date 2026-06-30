@@ -8,35 +8,35 @@ import { useNotificationStore } from '@/store';
 export default function MainLayout() {
 
   const notificationStore = useNotificationStore();
-  
+
   const handleClose = () => {
     notificationStore.hideNotification();
   };
 
   return (
     <>
-    <Box
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <AppHeader />
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
+        <AppHeader />
 
-      <Box component="main" sx={{ flexGrow: 1, padding: '12px' }}>
-        <Outlet />
+        <Box component="main" sx={{ flexGrow: 1, padding: '12px' }}>
+          <Outlet />
+        </Box>
+
+        <Snackbar
+          open={notificationStore.isShown}
+          autoHidedurationMs={5000}
+          onClose={handleClose}
+          message={notificationStore.text}
+        />
+
+        <AppNavigation />
       </Box>
-
-      <Snackbar
-        open={notificationStore.isShown}
-        autoHideDuration={5000}
-        onClose={handleClose}
-        message={notificationStore.text}
-      />
-
-      <AppNavigation />
-    </Box>
     </>
   );
 };

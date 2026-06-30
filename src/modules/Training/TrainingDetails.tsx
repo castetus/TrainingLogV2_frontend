@@ -136,7 +136,7 @@ export default function TrainingDetails () {
   };
   
   return (
-    <form onSubmit={form.handleSubmit(saveTraining)}>
+    <form>
     <Stack spacing={2}>
       <TextField {...form.register('name')} />
       <TrainingExerciseSelect
@@ -189,13 +189,13 @@ export default function TrainingDetails () {
           color="primary"
           aria-label="save"
           variant="extended"
-          type="submit"
           sx={{
             position: 'fixed',
             bottom: '72px',
             left: '50%',
             transform: 'translate(-50%)',
           }}
+          onClick={() => saveTraining(form.getValues())}
         >
           Save changes
         </Fab>}

@@ -17,7 +17,11 @@ export const trainingsApi = {
     return data.data;
   },
   updateTraining: async ({ id, payload }: { id: string, payload: TrainingCreateRequest }) => {
-    const { data } = await api.put(`/trainings/${id}`, payload);
+
+    const { data } = await api.put(`/trainings/${id}`, {
+      id,
+      ...payload,
+    });
     return data.data;
   },
   deleteTraining: async (id: string) => {

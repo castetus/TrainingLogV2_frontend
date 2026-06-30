@@ -20,7 +20,7 @@ export const useTraining = (id: string | undefined, options?: { enabled?: boolea
     queryFn: () => trainingsApi.getTrainingById(id as string),
     enabled: options?.enabled ?? Boolean(id),
   });
-}
+};
 
 export const useCreateTraining = () => {
   const queryClient = useQueryClient();

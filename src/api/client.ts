@@ -24,7 +24,6 @@ api.interceptors.response.use(
       useNotificationStore
         .getState()
         .showNotification({ text: error.response?.data?.message ?? 'Network error', type: 'error' });
-      console.log('notification state after:', useNotificationStore.getState());
     }
 
 

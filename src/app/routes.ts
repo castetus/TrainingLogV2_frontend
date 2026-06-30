@@ -1,6 +1,7 @@
 export const routes = {
   home: '/',
   startWorkout: '/workout',
+  workout: (id: string) => `/workout/${id}`,
   trainings: '/trainings',
   trainingDetails: (id: string) => `/trainings/${id}`,
   createTraining: '/trainings/new',
