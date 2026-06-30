@@ -5,6 +5,7 @@ import { getTrainingExerciseParamsLabel } from "@/shared/utils/getTrainingExerci
 import { workoutsApi } from "@/api/workouts/workouts";
 import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
+import EmptyState from "@/shared/components/EmptyState";
 
 export default function WorkoutForm () {
 
@@ -36,6 +37,12 @@ export default function WorkoutForm () {
       navigate(routes.workout(newWorkout.id));
     }
   };
+
+  if (!trainings || !trainings.length) {
+    return (
+      <EmptyState title="Add training first" />
+    );
+  }
 
   return (
     <Stack spacing={2}>

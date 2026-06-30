@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import type { Exercise } from "@/api/exercises/exercises.types";
 import { useTraining, useCreateTraining, useUpdateTraining } from "@/api/trainings/trainings.queries";
 import TrainingExercise from "./TrainingExercise";
-import type { TrainingDetailsResponse } from "@/api/trainings/trainings.types";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Box, Fab, Stack, TextField } from "@mui/material";
 import { DragDropContext, Droppable, Draggable, type DropResult } from '@hello-pangea/dnd';
