@@ -21,3 +21,11 @@ export const useWorkout = (id: string | undefined, options?: { enabled?: boolean
     enabled: options?.enabled ?? Boolean(id),
   });
 };
+
+export const useWorkoutDetails = (id: string | undefined, options?: { enabled?: boolean }) => {
+  return useQuery({
+    queryKey: workoutsKeys.detail(id),
+    queryFn: () => workoutsApi.getWorkoutDetailsById(id as string),
+    enabled: options?.enabled ?? Boolean(id),
+  });
+};

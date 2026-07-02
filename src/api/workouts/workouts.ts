@@ -10,6 +10,10 @@ export const workoutsApi = {
     const { data } = await api.get<AxiosResponse<WorkoutDetailsResponse>>(`/workouts/${id}`);
     return data.data;
   },
+  getWorkoutDetailsById: async (id: string) => {
+    const { data } = await api.get<AxiosResponse<WorkoutDetailsResponse>>(`/workouts/${id}/details`);
+    return data.data;
+  },
   createWorkout: async (payload: WorkoutCreateRequest) => {
     const { data } = await api.post('/workouts', payload);
     return data.data;
