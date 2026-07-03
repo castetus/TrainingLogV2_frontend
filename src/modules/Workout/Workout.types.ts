@@ -7,4 +7,10 @@ export type WorkoutListProps = {
   isFetching: boolean;
 };
 
-export type WorkoutDetailsItemProps = Omit<TrainingExerciseDetails, 'position'>
+export type WorkoutDetailsItemProps = Omit<TrainingExerciseDetails, 'position'>;
+
+export type WorkoutTimerProps = {
+  time: number;
+  isRunning: boolean;
+  onTick: () => void;
+};
