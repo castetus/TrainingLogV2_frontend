@@ -1,9 +1,9 @@
 import { api } from "@/api/client";
 import type { AxiosResponse } from "axios";
 
-export const workoutsApi = {
+export const workouts = {
   getWorkouts: async () => {
-    const { data } = await api.get<AxiosResponse<Workout[]>>('/workouts');
+    const { data } = await api.get<GetWorkoutsResult>('/workouts');
     return data.data;
   },
   getWorkoutById: async (id: string) => {

@@ -2,7 +2,8 @@ import { useTraining, useTrainings } from "@/api/trainings/trainings.queries";
 import { Button, List, ListItem, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getTrainingExerciseParamsLabel } from "@/shared/utils/getTrainingExerciseParamsLabel";
-import { workoutsApi } from "@/api/workouts/workouts";
+// import { workoutsApi } from "@/api/workouts/workouts";
+import { workouts } from "@/api/generated/workouts/workouts";
 import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
 import EmptyState from "@/shared/components/EmptyState";
@@ -10,6 +11,8 @@ import EmptyState from "@/shared/components/EmptyState";
 export default function WorkoutForm () {
 
   const navigate = useNavigate();
+
+  const workoutsApi = workouts();
 
   const { data: trainings } = useTrainings();
 
@@ -29,7 +32,7 @@ export default function WorkoutForm () {
   }, [trainingDetails])
 
   const startWorkout = async () => {
-    const newWorkout = await workoutsApi.createWorkout({
+    const newWorkout = await workoutsApi.postWorkouts({
       name: workoutName,
       trainingId,
     });
