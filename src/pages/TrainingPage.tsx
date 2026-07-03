@@ -1,4 +1,4 @@
-import { useTrainings } from "@/api/trainings/trainings.queries";
+import { useTrainings } from "@/api/services/trainings/trainings.queries";
 import { routes } from "@/app/routes";
 import TrainingsList from "@/modules/Training/TrainingsList";
 import AddButton from "@/shared/components/AddButton";

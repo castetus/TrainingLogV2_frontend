@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { trainingsApi } from './trainings';
+import { trainingsService } from './trainings';
+import type { CreateTrainingRequest } from './trainings.types';
 
 export const trainingsKeys = {
   all: ['trainings'] as const,
@@ -10,14 +11,14 @@ export const trainingsKeys = {
 export const useTrainings = () => {
   return useQuery({
     queryKey: trainingsKeys.list(),
-    queryFn: () => trainingsApi.getTrainings(),
+    queryFn: () => trainingsService.getTrainings(),
   });
 };
 
 export const useTraining = (id: string | undefined, options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: trainingsKeys.detail(id),
-    queryFn: () => trainingsApi.getTrainingById(id as string),
+    queryFn: () => trainingsService.getTrainingById(id as string),
     enabled: options?.enabled ?? Boolean(id),
   });
 };
@@ -26,7 +27,7 @@ export const useCreateTraining = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: trainingsApi.createTraining,
+    mutationFn: trainingsService.createTraining,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: trainingsKeys.all,
@@ -39,7 +40,8 @@ export const useUpdateTraining = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: trainingsApi.updateTraining,
+    mutationFn: ({ id, payload }: { id: string; payload: CreateTrainingRequest }) =>
+      trainingsService.updateTraining(id, { id, ...payload }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: trainingsKeys.all,
@@ -52,7 +54,7 @@ export const useDeleteTraining = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: trainingsApi.deleteTraining,
+    mutationFn: trainingsService.deleteTraining,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: trainingsKeys.all,

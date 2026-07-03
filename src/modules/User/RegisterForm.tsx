@@ -1,4 +1,4 @@
-import { authService } from "@/api/auth/auth";
+import { authService } from "@/api/services/auth/auth";
 import { Stack, TextField, Button, Alert } from "@mui/material";
 import { registerSchema } from "./User.validation";
 import type { RegisterFormValues } from "./User.validation";

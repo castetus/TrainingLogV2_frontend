@@ -1,4 +1,4 @@
-import { useWorkouts } from "@/api/workouts/workouts.queries";
+import { useWorkouts } from "@/api/services/workouts/workouts.queries";
 import { routes } from "@/app/routes";
 import WorkoutsList from "@/modules/Workout/WorkoutsList";
 import AddButton from "@/shared/components/AddButton";

@@ -11,7 +11,7 @@ import MainLayout from '@/layouts/MainLayout';
 import ExerciseView from '@/modules/Exercise/ExerciseView';
 import ExerciseForm from '@/modules/Exercise/ExerciseForm';
 import { useAuthStore } from '@/store';
-import { authService } from '@/api/auth/auth';
+import { authService } from '@/api/services/auth/auth';
 import LoginPage from '@/pages/LoginPage';
 import TrainingDetails from '@/modules/Training/TrainingDetails';
 import WorkoutForm from '@/modules/Workout/WorkoutForm';

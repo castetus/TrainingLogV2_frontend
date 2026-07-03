@@ -5,7 +5,7 @@ import { Fragment, useState } from 'react';
 import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
 import DeleteModal from "@/shared/components/DeleteModal";
-import { useDeleteTraining } from "@/api/trainings/trainings.queries";
+import { useDeleteTraining } from "@/api/services/trainings/trainings.queries";
 import Loader from '@/shared/components/Loader';
 import EmptyState from "@/shared/components/EmptyState";
 

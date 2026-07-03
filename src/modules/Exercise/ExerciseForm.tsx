@@ -3,7 +3,7 @@ import type { ExerciseForm } from "./Exercise.types";
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { getInitialExercise } from "./Exercise.utils";
 import { ExerciseType } from "@/shared/enums";
-import { useExercise, useCreateExercise, useUpdateExercise } from "@/api/exercises/exercises.queries";
+import { useExercise, useCreateExercise, useUpdateExercise } from "@/api/services/exercises/exercises.queries";
 import { useNavigate, useParams } from "react-router";
 import { routes } from "@/app/routes";
 

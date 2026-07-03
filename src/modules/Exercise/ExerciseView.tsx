@@ -1,4 +1,4 @@
-import { useExercise } from '@/api/exercises/exercises.queries';
+import { useExercise } from '@/api/services/exercises/exercises.queries';
 import { routes } from '@/app/routes';
 import ExerciseTypeIcon from '@/shared/components/ExerciseTypeIcon';
 import { Button, Paper, Typography } from '@mui/material'; 

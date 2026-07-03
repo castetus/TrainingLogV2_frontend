@@ -1,4 +1,4 @@
-import { useWorkoutDetails } from "@/api/workouts/workouts.queries";
+import { useWorkoutDetails } from "@/api/services/workouts/workouts.queries";
 import Loader from "@/shared/components/Loader";
 import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
 import { useParams } from "react-router";

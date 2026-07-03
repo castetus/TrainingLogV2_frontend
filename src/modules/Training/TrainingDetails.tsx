@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
 import TrainingExerciseSelect from "./TrainingExerciseSelect";
 import { useEffect, useState } from "react";
-import type { Exercise } from "@/api/exercises/exercises.types";
-import { useTraining, useCreateTraining, useUpdateTraining } from "@/api/trainings/trainings.queries";
+import type { Exercise } from "@/api/services/exercises/exercises.types";
+import { useTraining, useCreateTraining, useUpdateTraining } from "@/api/services/trainings/trainings.queries";
 import TrainingExercise from "./TrainingExercise";
 import { useFieldArray, useForm } from "react-hook-form";
 import { Box, Fab, Stack, TextField } from "@mui/material";

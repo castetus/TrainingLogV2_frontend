@@ -1,10 +1,8 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { workouts } from '@/api/generated/workouts/workouts';
-
-const workoutsApi = workouts();
+import { useQuery } from '@tanstack/react-query';
+import { workoutsService } from './workouts';
 
 export const workoutsKeys = {
-  all: ['trainings'] as const,
+  all: ['workouts'] as const,
   list: () => [...workoutsKeys.all, 'list'] as const,
   detail: (id?: string) => [...workoutsKeys.all, 'detail', id] as const,
 };
@@ -12,14 +10,14 @@ export const workoutsKeys = {
 export const useWorkouts = () => {
   return useQuery({
     queryKey: workoutsKeys.list(),
-    queryFn: () => workoutsApi.getWorkouts(),
+    queryFn: () => workoutsService.getWorkouts(),
   });
 };
 
 export const useWorkout = (id: string | undefined, options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: workoutsKeys.detail(id),
-    queryFn: () => workoutsApi.getWorkoutsWorkoutId(id as string),
+    queryFn: () => workoutsService.getWorkoutById(id as string),
     enabled: options?.enabled ?? Boolean(id),
   });
 };
@@ -27,7 +25,7 @@ export const useWorkout = (id: string | undefined, options?: { enabled?: boolean
 export const useWorkoutDetails = (id: string | undefined, options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: workoutsKeys.detail(id),
-    queryFn: () => workoutsApi.getWorkoutsWorkoutIdDetails(id as string),
+    queryFn: () => workoutsService.getWorkoutDetails(id as string),
     enabled: options?.enabled ?? Boolean(id),
   });
 };

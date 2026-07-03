@@ -1,9 +1,8 @@
-import { useTraining, useTrainings } from "@/api/trainings/trainings.queries";
+import { useTraining, useTrainings } from "@/api/services/trainings/trainings.queries";
 import { Button, List, ListItem, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getTrainingExerciseParamsLabel } from "@/shared/utils/getTrainingExerciseParamsLabel";
-// import { workoutsApi } from "@/api/workouts/workouts";
-import { workouts } from "@/api/generated/workouts/workouts";
+import { workoutsService } from "@/api/services/workouts/workouts";
 import { useNavigate } from "react-router";
 import { routes } from "@/app/routes";
 import EmptyState from "@/shared/components/EmptyState";
@@ -11,8 +10,6 @@ import EmptyState from "@/shared/components/EmptyState";
 export default function WorkoutForm () {
 
   const navigate = useNavigate();
-
-  const workoutsApi = workouts();
 
   const { data: trainings } = useTrainings();
 
@@ -29,10 +26,10 @@ export default function WorkoutForm () {
     }
     const newWorkoutName = `${trainingDetails.name} | ${new Date().toLocaleDateString()}`;
     setWorkoutName(newWorkoutName);
-  }, [trainingDetails])
+  }, [trainingDetails]);
 
   const startWorkout = async () => {
-    const newWorkout = await workoutsApi.postWorkouts({
+    const newWorkout = await workoutsService.createWorkout({
       name: workoutName,
       trainingId,
     });

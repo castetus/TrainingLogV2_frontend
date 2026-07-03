@@ -1,4 +1,4 @@
-import { authService } from '@/api/auth/auth';
+import { authService } from '@/api/services/auth/auth';
 import { AccountCircle, Logout, Settings } from '@mui/icons-material';
 import { Box, IconButton, ListItemIcon, Menu, MenuItem } from '@mui/material';
 import AppBar from '@mui/material/AppBar';

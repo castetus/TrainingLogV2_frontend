@@ -1,4 +1,4 @@
-import { authService } from "@/api/auth/auth";
+import { authService } from "@/api/services/auth/auth";
 import { useAuthStore } from "@/store";
 import { Alert, Button, Stack, TextField } from "@mui/material";
 import { useNavigate } from "react-router";

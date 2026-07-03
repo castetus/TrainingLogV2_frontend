@@ -1,5 +1,5 @@
-import { useDeleteExercise } from '@/api/exercises/exercises.queries';
-import type { Exercise } from '@/api/exercises/exercises.types';
+import { useDeleteExercise } from '@/api/services/exercises/exercises.queries';
+import type { Exercise } from '@/api/services/exercises/exercises.types';
 import { routes } from '@/app/routes';
 import { Delete, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Link, ListItem, Typography } from '@mui/material';

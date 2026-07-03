@@ -1,7 +1,7 @@
 import { useExerciseSearch } from "@/hooks/useExerciseSearch";
 import { Autocomplete, TextField } from "@mui/material";
 import type { TrainingExerciseSelectProps } from "./Training.types";
-import type { Exercise } from "@/api/exercises/exercises.types";
+import type { Exercise } from "@/api/services/exercises/exercises.types";
 
 export default function TrainingExerciseSelect ({ onSelect }: TrainingExerciseSelectProps) {
 

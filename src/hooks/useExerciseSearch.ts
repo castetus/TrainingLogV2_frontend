@@ -1,4 +1,4 @@
-import { useExercises } from '@/api/exercises/exercises.queries';
+import { useExercises } from '@/api/services/exercises/exercises.queries';
 import { useDebouncedValue } from '@/shared/utils/useDebouncedValue';
 import { useState } from 'react';
 

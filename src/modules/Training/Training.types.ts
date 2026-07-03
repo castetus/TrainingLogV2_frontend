@@ -1,4 +1,4 @@
-import type { Exercise } from "@/api/exercises/exercises.types";
+import type { Exercise } from "@/api/services/exercises/exercises.types";
 import type { ExerciseType } from "@/shared/enums";
 import type { DraggableProvidedDragHandleProps } from "@hello-pangea/dnd";
 

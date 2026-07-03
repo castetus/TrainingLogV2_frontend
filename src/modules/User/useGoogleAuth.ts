@@ -1,4 +1,4 @@
-import { authService } from "@/api/auth/auth";
+import { authService } from "@/api/services/auth/auth";
 import { useAuthStore } from "@/store";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
