@@ -13,7 +13,7 @@ export default function WorkoutForm () {
 
   const { data: trainings } = useTrainings();
 
-  const [trainingId, setTrainingId] = useState();
+  const [trainingId, setTrainingId] = useState<string>();
   const [workoutName, setWorkoutName] = useState('');
 
   const { data: trainingDetails } = useTraining(trainingId, {
@@ -29,6 +29,9 @@ export default function WorkoutForm () {
   }, [trainingDetails]);
 
   const startWorkout = async () => {
+    if (!trainingId) {
+      return;
+    }
     const newWorkout = await workoutsService.createWorkout({
       name: workoutName,
       trainingId,

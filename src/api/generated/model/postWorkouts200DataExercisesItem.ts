@@ -4,13 +4,13 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import type { PostWorkouts200ExercisesItemSetsItem } from './postWorkouts200ExercisesItemSetsItem';
+import type { PostWorkouts200DataExercisesItemSetsItem } from './postWorkouts200DataExercisesItemSetsItem';
 
-export type PostWorkouts200ExercisesItem = {
+export type PostWorkouts200DataExercisesItem = {
   id: string;
   userExerciseConfigId: string;
   exerciseId: string;
   exerciseName: string;
   order: number;
-  sets: PostWorkouts200ExercisesItemSetsItem[];
+  sets: PostWorkouts200DataExercisesItemSetsItem[];
 };

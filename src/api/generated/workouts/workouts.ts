@@ -4,15 +4,8 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import * as axios from 'axios';
 import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
-import type {
-  GetWorkouts200Item,
+  GetWorkouts200,
   GetWorkoutsWorkoutId200,
   GetWorkoutsWorkoutIdDetails200,
   PostWorkouts200,
@@ -23,85 +16,92 @@ import type {
   PostWorkoutsWorkoutIdResume200
 } from '../model';
 
+import { orvalMutator } from '../../orvalMutator';
 
 
 
-  export const getWorkouts = (axiosInstance: AxiosInstance = axios.default) => {
+  export const getWorkouts = () => {
 const getWorkouts = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetWorkouts200Item[]>> => {
-    return axiosInstance.get(
-      `/workouts`,options
-    );
-  }
-const postWorkouts = (
-    postWorkoutsBody: PostWorkoutsBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostWorkouts200>> => {
-    return axiosInstance.post(
-      `/workouts`,
-      postWorkoutsBody,options
-    );
-  }
-const getWorkoutsWorkoutId = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetWorkoutsWorkoutId200>> => {
-    return axiosInstance.get(
-      `/workouts/${workoutId}`,options
-    );
-  }
-const deleteWorkoutsWorkoutId = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.delete(
-      `/workouts/${workoutId}`,options
-    );
-  }
-const getWorkoutsWorkoutIdDetails = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetWorkoutsWorkoutIdDetails200>> => {
-    return axiosInstance.get(
-      `/workouts/${workoutId}/details`,options
-    );
-  }
-const postWorkoutsWorkoutIdPause = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostWorkoutsWorkoutIdPause200>> => {
-    return axiosInstance.post(
-      `/workouts/${workoutId}/pause`,
-      undefined,options
-    );
-  }
-const postWorkoutsWorkoutIdResume = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostWorkoutsWorkoutIdResume200>> => {
-    return axiosInstance.post(
-      `/workouts/${workoutId}/resume`,
-      undefined,options
-    );
-  }
-const postWorkoutsWorkoutIdFinish = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostWorkoutsWorkoutIdFinish200>> => {
-    return axiosInstance.post(
-      `/workouts/${workoutId}/finish`,
-      undefined,options
-    );
-  }
-const postWorkoutsWorkoutIdCancel = (
-    workoutId: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostWorkoutsWorkoutIdCancel200>> => {
-    return axiosInstance.post(
-      `/workouts/${workoutId}/cancel`,
-      undefined,options
-    );
-  }
-return {getWorkouts,postWorkouts,getWorkoutsWorkoutId,deleteWorkoutsWorkoutId,getWorkoutsWorkoutIdDetails,postWorkoutsWorkoutIdPause,postWorkoutsWorkoutIdResume,postWorkoutsWorkoutIdFinish,postWorkoutsWorkoutIdCancel}};
-export type GetWorkoutsResult = AxiosResponse<GetWorkouts200Item[]>
-export type PostWorkoutsResult = AxiosResponse<PostWorkouts200>
-export type GetWorkoutsWorkoutIdResult = AxiosResponse<GetWorkoutsWorkoutId200>
-export type DeleteWorkoutsWorkoutIdResult = AxiosResponse<void>
-export type GetWorkoutsWorkoutIdDetailsResult = AxiosResponse<GetWorkoutsWorkoutIdDetails200>
-export type PostWorkoutsWorkoutIdPauseResult = AxiosResponse<PostWorkoutsWorkoutIdPause200>
-export type PostWorkoutsWorkoutIdResumeResult = AxiosResponse<PostWorkoutsWorkoutIdResume200>
-export type PostWorkoutsWorkoutIdFinishResult = AxiosResponse<PostWorkoutsWorkoutIdFinish200>
-export type PostWorkoutsWorkoutIdCancelResult = AxiosResponse<PostWorkoutsWorkoutIdCancel200>
+
+ ) => {
+      return orvalMutator<GetWorkouts200>(
+      {url: `/workouts`, method: 'GET'
+    },
+      );
+    }
+  const postWorkouts = (
+    postWorkoutsBody: PostWorkoutsBody,
+ ) => {
+      return orvalMutator<PostWorkouts200>(
+      {url: `/workouts`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postWorkoutsBody
+    },
+      );
+    }
+  const getWorkoutsWorkoutId = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<GetWorkoutsWorkoutId200>(
+      {url: `/workouts/${workoutId}`, method: 'GET'
+    },
+      );
+    }
+  const deleteWorkoutsWorkoutId = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<void>(
+      {url: `/workouts/${workoutId}`, method: 'DELETE'
+    },
+      );
+    }
+  const getWorkoutsWorkoutIdDetails = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<GetWorkoutsWorkoutIdDetails200>(
+      {url: `/workouts/${workoutId}/details`, method: 'GET'
+    },
+      );
+    }
+  const postWorkoutsWorkoutIdPause = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<PostWorkoutsWorkoutIdPause200>(
+      {url: `/workouts/${workoutId}/pause`, method: 'POST'
+    },
+      );
+    }
+  const postWorkoutsWorkoutIdResume = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<PostWorkoutsWorkoutIdResume200>(
+      {url: `/workouts/${workoutId}/resume`, method: 'POST'
+    },
+      );
+    }
+  const postWorkoutsWorkoutIdFinish = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<PostWorkoutsWorkoutIdFinish200>(
+      {url: `/workouts/${workoutId}/finish`, method: 'POST'
+    },
+      );
+    }
+  const postWorkoutsWorkoutIdCancel = (
+    workoutId: string,
+ ) => {
+      return orvalMutator<PostWorkoutsWorkoutIdCancel200>(
+      {url: `/workouts/${workoutId}/cancel`, method: 'POST'
+    },
+      );
+    }
+  return {getWorkouts,postWorkouts,getWorkoutsWorkoutId,deleteWorkoutsWorkoutId,getWorkoutsWorkoutIdDetails,postWorkoutsWorkoutIdPause,postWorkoutsWorkoutIdResume,postWorkoutsWorkoutIdFinish,postWorkoutsWorkoutIdCancel}};
+export type GetWorkoutsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['getWorkouts']>>>
+export type PostWorkoutsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['postWorkouts']>>>
+export type GetWorkoutsWorkoutIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['getWorkoutsWorkoutId']>>>
+export type DeleteWorkoutsWorkoutIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['deleteWorkoutsWorkoutId']>>>
+export type GetWorkoutsWorkoutIdDetailsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['getWorkoutsWorkoutIdDetails']>>>
+export type PostWorkoutsWorkoutIdPauseResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['postWorkoutsWorkoutIdPause']>>>
+export type PostWorkoutsWorkoutIdResumeResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['postWorkoutsWorkoutIdResume']>>>
+export type PostWorkoutsWorkoutIdFinishResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['postWorkoutsWorkoutIdFinish']>>>
+export type PostWorkoutsWorkoutIdCancelResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['postWorkoutsWorkoutIdCancel']>>>

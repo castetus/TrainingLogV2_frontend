@@ -5,7 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export const GetWorkouts200ItemStatus = {  in_progress: 'in_progress',
+export const PostWorkouts200DataStatus = {  in_progress: 'in_progress',
   paused: 'paused',
   finished: 'finished',
   cancelled: 'cancelled',

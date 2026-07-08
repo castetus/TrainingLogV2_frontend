@@ -4,12 +4,8 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import type { PostWorkoutsWorkoutIdPause200Status } from './postWorkoutsWorkoutIdPause200Status';
+import type { PostWorkoutsWorkoutIdPause200Data } from './postWorkoutsWorkoutIdPause200Data';
 
 export type PostWorkoutsWorkoutIdPause200 = {
-  id: string;
-  trainingId: string;
-  workoutName: string;
-  status: typeof PostWorkoutsWorkoutIdPause200Status[keyof typeof PostWorkoutsWorkoutIdPause200Status];
-  durationMs: number;
+  data: PostWorkoutsWorkoutIdPause200Data;
 };

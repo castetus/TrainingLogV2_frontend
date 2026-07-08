@@ -4,15 +4,8 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import * as axios from 'axios';
 import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
-import type {
-  GetExercises200Item,
+  GetExercises200,
   GetExercisesId200,
   GetExercisesParams,
   PatchExercisesId200,
@@ -21,53 +14,60 @@ import type {
   PostExercisesBody
 } from '../model';
 
+import { orvalMutator } from '../../orvalMutator';
 
 
 
-  export const getExercises = (axiosInstance: AxiosInstance = axios.default) => {
+  export const getExercises = () => {
 const getExercises = (
-    params?: GetExercisesParams, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetExercises200Item[]>> => {
-    return axiosInstance.get(
-      `/exercises`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-const postExercises = (
-    postExercisesBody: PostExercisesBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostExercises200>> => {
-    return axiosInstance.post(
-      `/exercises`,
-      postExercisesBody,options
-    );
-  }
-const getExercisesId = (
-    id: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetExercisesId200>> => {
-    return axiosInstance.get(
-      `/exercises/${id}`,options
-    );
-  }
-const patchExercisesId = (
+    params?: GetExercisesParams,
+ ) => {
+      return orvalMutator<GetExercises200>(
+      {url: `/exercises`, method: 'GET',
+        params
+    },
+      );
+    }
+  const postExercises = (
+    postExercisesBody: PostExercisesBody,
+ ) => {
+      return orvalMutator<PostExercises200>(
+      {url: `/exercises`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postExercisesBody
+    },
+      );
+    }
+  const getExercisesId = (
     id: string,
-    patchExercisesIdBody: PatchExercisesIdBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PatchExercisesId200>> => {
-    return axiosInstance.patch(
-      `/exercises/${id}`,
-      patchExercisesIdBody,options
-    );
-  }
-const deleteExercisesId = (
-    id: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.delete(
-      `/exercises/${id}`,options
-    );
-  }
-return {getExercises,postExercises,getExercisesId,patchExercisesId,deleteExercisesId}};
-export type GetExercisesResult = AxiosResponse<GetExercises200Item[]>
-export type PostExercisesResult = AxiosResponse<PostExercises200>
-export type GetExercisesIdResult = AxiosResponse<GetExercisesId200>
-export type PatchExercisesIdResult = AxiosResponse<PatchExercisesId200>
-export type DeleteExercisesIdResult = AxiosResponse<void>
+ ) => {
+      return orvalMutator<GetExercisesId200>(
+      {url: `/exercises/${id}`, method: 'GET'
+    },
+      );
+    }
+  const patchExercisesId = (
+    id: string,
+    patchExercisesIdBody: PatchExercisesIdBody,
+ ) => {
+      return orvalMutator<PatchExercisesId200>(
+      {url: `/exercises/${id}`, method: 'PATCH',
+      headers: {'Content-Type': 'application/json', },
+      data: patchExercisesIdBody
+    },
+      );
+    }
+  const deleteExercisesId = (
+    id: string,
+ ) => {
+      return orvalMutator<void>(
+      {url: `/exercises/${id}`, method: 'DELETE'
+    },
+      );
+    }
+  return {getExercises,postExercises,getExercisesId,patchExercisesId,deleteExercisesId}};
+export type GetExercisesResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getExercises>['getExercises']>>>
+export type PostExercisesResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getExercises>['postExercises']>>>
+export type GetExercisesIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getExercises>['getExercisesId']>>>
+export type PatchExercisesIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getExercises>['patchExercisesId']>>>
+export type DeleteExercisesIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getExercises>['deleteExercisesId']>>>

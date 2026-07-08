@@ -19,7 +19,7 @@ export default function LoginForm () {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      login: '',
+      email: '',
       password: '',
     },
   });
@@ -58,9 +58,9 @@ export default function LoginForm () {
           <TextField
             label="Email"
             variant="outlined"
-            error={!!errors.login}
-            helperText={errors.login?.message}
-            {...register('login')}
+            error={!!errors.email}
+            helperText={errors.email?.message}
+            {...register('email')}
           />
           <TextField
             label="Password"

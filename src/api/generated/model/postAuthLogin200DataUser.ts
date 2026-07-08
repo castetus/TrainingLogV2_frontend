@@ -10,6 +10,4 @@ export type PostAuthLogin200DataUser = {
   name: string;
   email: string;
   created_at: string;
-  accessToken: string;
-  refreshToken: string;
 };

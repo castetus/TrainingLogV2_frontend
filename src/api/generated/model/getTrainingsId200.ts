@@ -4,10 +4,8 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import type { GetTrainingsId200ExercisesItem } from './getTrainingsId200ExercisesItem';
+import type { GetTrainingsId200Data } from './getTrainingsId200Data';
 
 export type GetTrainingsId200 = {
-  id: string;
-  name: string;
-  exercises: GetTrainingsId200ExercisesItem[];
+  data: GetTrainingsId200Data;
 };

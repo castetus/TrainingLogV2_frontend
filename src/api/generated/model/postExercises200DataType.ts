@@ -5,7 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export const PostExercises200Type = {  weight: 'weight',
+export const PostExercises200DataType = {  weight: 'weight',
   time: 'time',
   base: 'base',
 } as const

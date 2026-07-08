@@ -1,10 +1,12 @@
 import { useWorkoutDetails } from "@/api/services/workouts/workouts.queries";
 import Loader from "@/shared/components/Loader";
-import { Accordion, AccordionDetails, AccordionSummary, Button, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import WorkoutTimer from "./WorkoutTimer";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { workoutsService } from "@/api/services/workouts/workouts";
+import WorkoutSetDetails from "./WorkoutSetDetails";
 
 export default function WorkoutDetails () {
 
@@ -17,7 +19,10 @@ export default function WorkoutDetails () {
   }, []);
 
   const startWorkout = () => {
-    workoutApi.startWorkout(workoutId);
+    if (!workoutId) {
+      return;
+    }
+    workoutsService.resumeWorkout(workoutId);
     setIsRunning(true);
   };
 
@@ -34,8 +39,12 @@ export default function WorkoutDetails () {
   });
 
   const buttonText = () => {
-    return workout.status;
+    return workout?.status;
   };
+
+  useEffect(() => {
+    startWorkout();
+  }, []);
 
   if (isLoading || isFetching) {
     return (
@@ -44,28 +53,29 @@ export default function WorkoutDetails () {
   };
   
   return (
-    <>
+    <Stack spacing={2}>
       <Button variant="contained">
-        {buttonText()}
-        <WorkoutTimer time={time} isRunning={isRunning} onTick={onTick} />
+        <Box>
+          {buttonText()}
+          <WorkoutTimer time={time} isRunning={isRunning} onTick={onTick} />
+        </Box>
       </Button>
-      {workout && <Accordion>
-        {workout.exercises.map((exercise) => {
+        {workout?.exercises.map((exercise) => {
         return (
-          <>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-          >
-            <Typography component="span">{exercise.exerciseName}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            malesuada lacus ex, sit amet blandit leo lobortis eget.
-          </AccordionDetails>
-          </>
+          <Accordion key={exercise.id}>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography component="span">{exercise.exerciseName}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {exercise.sets.map((set) => {
+                return <WorkoutSetDetails set={set}/>
+              })}
+            </AccordionDetails>
+          </Accordion>
         )
       })}
-      </Accordion>}
-    </>
+    </Stack>
   );
 };

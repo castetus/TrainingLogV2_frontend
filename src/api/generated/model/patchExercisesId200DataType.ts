@@ -5,7 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export const GetTrainingsId200ExercisesItemExerciseType = {  weight: 'weight',
+export const PatchExercisesId200DataType = {  weight: 'weight',
   time: 'time',
   base: 'base',
 } as const

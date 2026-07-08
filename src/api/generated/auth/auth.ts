@@ -4,13 +4,6 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import * as axios from 'axios';
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
 import type {
   GetAuthGoogleCallbackParams,
   GetAuthMe200,
@@ -20,70 +13,77 @@ import type {
   PostAuthRegisterBody
 } from '../model';
 
+import { orvalMutator } from '../../orvalMutator';
 
 
 
-  export const getAuth = (axiosInstance: AxiosInstance = axios.default) => {
+  export const getAuth = () => {
 const postAuthRegister = (
-    postAuthRegisterBody: PostAuthRegisterBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostAuthRegister200>> => {
-    return axiosInstance.post(
-      `/auth/register`,
-      postAuthRegisterBody,options
-    );
-  }
-const postAuthLogin = (
-    postAuthLoginBody: PostAuthLoginBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostAuthLogin200>> => {
-    return axiosInstance.post(
-      `/auth/login`,
-      postAuthLoginBody,options
-    );
-  }
-const getAuthMe = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetAuthMe200>> => {
-    return axiosInstance.get(
-      `/auth/me`,options
-    );
-  }
-const postAuthLogout = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.post(
-      `/auth/logout`,
-      undefined,options
-    );
-  }
-const postAuthRefresh = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.post(
-      `/auth/refresh`,
-      undefined,options
-    );
-  }
-const getAuthGoogle = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.get(
-      `/auth/google`,options
-    );
-  }
-const getAuthGoogleCallback = (
-    params: GetAuthGoogleCallbackParams, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.get(
-      `/auth/google/callback`,{
-    ...options,
-        params: {...params, ...options?.params},}
-    );
-  }
-return {postAuthRegister,postAuthLogin,getAuthMe,postAuthLogout,postAuthRefresh,getAuthGoogle,getAuthGoogleCallback}};
-export type PostAuthRegisterResult = AxiosResponse<PostAuthRegister200>
-export type PostAuthLoginResult = AxiosResponse<PostAuthLogin200>
-export type GetAuthMeResult = AxiosResponse<GetAuthMe200>
-export type PostAuthLogoutResult = AxiosResponse<void>
-export type PostAuthRefreshResult = AxiosResponse<void>
-export type GetAuthGoogleResult = AxiosResponse<void>
-export type GetAuthGoogleCallbackResult = AxiosResponse<void>
+    postAuthRegisterBody: PostAuthRegisterBody,
+ ) => {
+      return orvalMutator<PostAuthRegister200>(
+      {url: `/auth/register`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postAuthRegisterBody
+    },
+      );
+    }
+  const postAuthLogin = (
+    postAuthLoginBody: PostAuthLoginBody,
+ ) => {
+      return orvalMutator<PostAuthLogin200>(
+      {url: `/auth/login`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postAuthLoginBody
+    },
+      );
+    }
+  const getAuthMe = (
+
+ ) => {
+      return orvalMutator<GetAuthMe200>(
+      {url: `/auth/me`, method: 'GET'
+    },
+      );
+    }
+  const postAuthLogout = (
+
+ ) => {
+      return orvalMutator<void>(
+      {url: `/auth/logout`, method: 'POST'
+    },
+      );
+    }
+  const postAuthRefresh = (
+
+ ) => {
+      return orvalMutator<void>(
+      {url: `/auth/refresh`, method: 'POST'
+    },
+      );
+    }
+  const getAuthGoogle = (
+
+ ) => {
+      return orvalMutator<void>(
+      {url: `/auth/google`, method: 'GET'
+    },
+      );
+    }
+  const getAuthGoogleCallback = (
+    params: GetAuthGoogleCallbackParams,
+ ) => {
+      return orvalMutator<void>(
+      {url: `/auth/google/callback`, method: 'GET',
+        params
+    },
+      );
+    }
+  return {postAuthRegister,postAuthLogin,getAuthMe,postAuthLogout,postAuthRefresh,getAuthGoogle,getAuthGoogleCallback}};
+export type PostAuthRegisterResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['postAuthRegister']>>>
+export type PostAuthLoginResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['postAuthLogin']>>>
+export type GetAuthMeResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['getAuthMe']>>>
+export type PostAuthLogoutResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['postAuthLogout']>>>
+export type PostAuthRefreshResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['postAuthRefresh']>>>
+export type GetAuthGoogleResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['getAuthGoogle']>>>
+export type GetAuthGoogleCallbackResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['getAuthGoogleCallback']>>>

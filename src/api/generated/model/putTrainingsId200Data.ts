@@ -5,8 +5,8 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostAuthLoginBody = {
-  email: string;
-  /** @minLength 4 */
-  password: string;
+export type PutTrainingsId200Data = {
+  id: string;
+  name: string;
+  userId: string;
 };

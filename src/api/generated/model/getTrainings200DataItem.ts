@@ -5,7 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type GetTrainings200Item = {
+export type GetTrainings200DataItem = {
   id: string;
   name: string;
   userId: string;

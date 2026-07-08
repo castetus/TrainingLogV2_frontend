@@ -16,3 +16,4 @@ export type WorkoutExercise = WorkoutDetails['exercises'][number];
 export type WorkoutSet = WorkoutExercise['sets'][number];
 export type WorkoutStatus = WorkoutDetails['status'];
 export type CreateWorkoutResponse = PostWorkoutsResult['data'];
+export type { GetWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem as WorkoutSetDetails } from '@/api/generated/model/getWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem';

@@ -5,8 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostAuthLoginBody = {
-  email: string;
-  /** @minLength 4 */
-  password: string;
-};
+export const GetExercises200DataItemType = {  weight: 'weight',
+  time: 'time',
+  base: 'base',
+} as const

@@ -19,11 +19,11 @@ export default function WorkoutPage () {
 
   return (
     <>
-      <WorkoutsList
+      {workouts && <WorkoutsList
         workouts={workouts}
         isLoading={isLoading}
         isFetching={isFetching}
-      />
+      />}
 
       <AddButton onClick={() => openWorkoutForm()} />
     </>

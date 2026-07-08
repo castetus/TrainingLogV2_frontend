@@ -5,7 +5,6 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export const PatchExercisesId200Type = {  weight: 'weight',
-  time: 'time',
-  base: 'base',
-} as const
+export type GetWorkouts200Meta = {
+  total: number;
+};

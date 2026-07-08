@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { convertSecondsToMinutes } from "@/shared/utils/time";
+import { convertSecondsToMinutes } from "@/shared/utils/convertSecondsToMinutes";
 import type { WorkoutTimerProps } from "./Workout.types";
 
 export default function WorkoutTimer({ time, isRunning, onTick }: WorkoutTimerProps) {

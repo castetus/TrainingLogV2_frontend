@@ -4,66 +4,68 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import * as axios from 'axios';
 import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse
-} from 'axios';
-
-import type {
-  GetTrainings200Item,
+  GetTrainings200,
   GetTrainingsId200,
   PostTrainings200,
   PostTrainingsBody,
+  PutTrainingsId200,
   PutTrainingsIdBody
 } from '../model';
 
+import { orvalMutator } from '../../orvalMutator';
 
 
 
-  export const getTrainings = (axiosInstance: AxiosInstance = axios.default) => {
+  export const getTrainings = () => {
 const getTrainings = (
-     options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetTrainings200Item[]>> => {
-    return axiosInstance.get(
-      `/trainings`,options
-    );
-  }
-const postTrainings = (
-    postTrainingsBody: PostTrainingsBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<PostTrainings200>> => {
-    return axiosInstance.post(
-      `/trainings`,
-      postTrainingsBody,options
-    );
-  }
-const getTrainingsId = (
-    id: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<GetTrainingsId200>> => {
-    return axiosInstance.get(
-      `/trainings/${id}`,options
-    );
-  }
-const putTrainingsId = (
+
+ ) => {
+      return orvalMutator<GetTrainings200>(
+      {url: `/trainings`, method: 'GET'
+    },
+      );
+    }
+  const postTrainings = (
+    postTrainingsBody: PostTrainingsBody,
+ ) => {
+      return orvalMutator<PostTrainings200>(
+      {url: `/trainings`, method: 'POST',
+      headers: {'Content-Type': 'application/json', },
+      data: postTrainingsBody
+    },
+      );
+    }
+  const getTrainingsId = (
     id: string,
-    putTrainingsIdBody: PutTrainingsIdBody, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.put(
-      `/trainings/${id}`,
-      putTrainingsIdBody,options
-    );
-  }
-const deleteTrainingsId = (
-    id: string, options?: AxiosRequestConfig
- ): Promise<AxiosResponse<void>> => {
-    return axiosInstance.delete(
-      `/trainings/${id}`,options
-    );
-  }
-return {getTrainings,postTrainings,getTrainingsId,putTrainingsId,deleteTrainingsId}};
-export type GetTrainingsResult = AxiosResponse<GetTrainings200Item[]>
-export type PostTrainingsResult = AxiosResponse<PostTrainings200>
-export type GetTrainingsIdResult = AxiosResponse<GetTrainingsId200>
-export type PutTrainingsIdResult = AxiosResponse<void>
-export type DeleteTrainingsIdResult = AxiosResponse<void>
+ ) => {
+      return orvalMutator<GetTrainingsId200>(
+      {url: `/trainings/${id}`, method: 'GET'
+    },
+      );
+    }
+  const putTrainingsId = (
+    id: string,
+    putTrainingsIdBody: PutTrainingsIdBody,
+ ) => {
+      return orvalMutator<PutTrainingsId200>(
+      {url: `/trainings/${id}`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: putTrainingsIdBody
+    },
+      );
+    }
+  const deleteTrainingsId = (
+    id: string,
+ ) => {
+      return orvalMutator<void>(
+      {url: `/trainings/${id}`, method: 'DELETE'
+    },
+      );
+    }
+  return {getTrainings,postTrainings,getTrainingsId,putTrainingsId,deleteTrainingsId}};
+export type GetTrainingsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTrainings>['getTrainings']>>>
+export type PostTrainingsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTrainings>['postTrainings']>>>
+export type GetTrainingsIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTrainings>['getTrainingsId']>>>
+export type PutTrainingsIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTrainings>['putTrainingsId']>>>
+export type DeleteTrainingsIdResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTrainings>['deleteTrainingsId']>>>

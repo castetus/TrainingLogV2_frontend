@@ -5,7 +5,7 @@
  * OpenAPI spec version: 1.0.0
  */
 
-export type PostWorkouts200ExercisesItemSetsItem = {
+export type GetWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem = {
   id: string;
   setNumber: number;
   reps?: number;

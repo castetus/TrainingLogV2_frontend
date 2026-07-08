@@ -1,4 +1,4 @@
-import type { Workout } from "@/api/services/workouts/workouts.types";
+import type { Workout, WorkoutSetDetails } from "@/api/services/workouts/workouts.types";
 import type { TrainingExerciseDetails } from "@/modules/Training/Training.types";
 
 export type WorkoutListProps = {
@@ -14,3 +14,7 @@ export type WorkoutTimerProps = {
   isRunning: boolean;
   onTick: () => void;
 };
+
+export type WorkoutSetDetailsProps = {
+  set: WorkoutSetDetails;
+}

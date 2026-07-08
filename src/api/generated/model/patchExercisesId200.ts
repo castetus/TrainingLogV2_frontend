@@ -4,13 +4,8 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
-import type { PatchExercisesId200Type } from './patchExercisesId200Type';
+import type { PatchExercisesId200Data } from './patchExercisesId200Data';
 
 export type PatchExercisesId200 = {
-  id: string;
-  name: string;
-  created_at: string;
-  updated_at: string;
-  description?: string;
-  type: typeof PatchExercisesId200Type[keyof typeof PatchExercisesId200Type];
+  data: PatchExercisesId200Data;
 };
