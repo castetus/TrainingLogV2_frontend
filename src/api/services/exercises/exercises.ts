@@ -1,4 +1,3 @@
-import { api } from '@/api/client';
 import { getExercises } from '@/api/generated/exercises/exercises';
 import type {
   CreateExerciseRequest,
@@ -6,7 +5,7 @@ import type {
   UpdateExerciseRequest,
 } from './exercises.types';
 
-const exercisesClient = getExercises(api);
+const exercisesClient = getExercises();
 
 export const exercisesService = {
   getExercises: (params?: ExercisesRequestParams) =>

@@ -27,7 +27,7 @@ export default function ExerciseForm () {
   useEffect(() => {
     if (!exercise) return;
 
-    setForm({...exercise});
+    setForm({ ...exercise, description: exercise.description ?? '' });
   }, [exercise]);
 
   const handleChange = (

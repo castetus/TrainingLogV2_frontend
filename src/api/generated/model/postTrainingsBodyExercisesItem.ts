@@ -8,6 +8,7 @@
 export type PostTrainingsBodyExercisesItem = {
   exerciseId: string;
   position: number;
+  /** @minimum 1 */
   plannedSets: number;
   plannedReps?: number;
   plannedWeight?: number;

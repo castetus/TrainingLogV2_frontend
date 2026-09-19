@@ -1,8 +1,7 @@
-import { api } from '@/api/client';
 import { getWorkouts } from '@/api/generated/workouts/workouts';
 import type { CreateWorkoutRequest } from './workouts.types';
 
-const workoutsClient = getWorkouts(api);
+const workoutsClient = getWorkouts();
 
 export const workoutsService = {
   getWorkouts: () =>

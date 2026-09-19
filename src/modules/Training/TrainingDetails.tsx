@@ -73,6 +73,7 @@ export default function TrainingDetails () {
       append(exercise);
       setSelectKey((key) => key + 1);
     } else {
+      if (editingIndex === null) return;
       update(editingIndex, exercise);
     }
     
@@ -119,7 +120,7 @@ export default function TrainingDetails () {
   const saveTraining = async (values: TrainingFormValues) => {
     const payload = mapFormToPayload(values);
     try {
-      if (isEdit) {
+      if (trainingId) {
         await updateMutation.mutateAsync({
           id: trainingId,
           payload,

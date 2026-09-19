@@ -1,6 +1,5 @@
 import { InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import type { WorkoutSetDetailsProps } from "./Workout.types";
-import { useEffect, useState } from "react";
 import { TaskAltRounded } from "@mui/icons-material";
 
 export default function WorkoutSetForm ({ set, type, onChange }: WorkoutSetDetailsProps) {
@@ -19,10 +18,6 @@ export default function WorkoutSetForm ({ set, type, onChange }: WorkoutSetDetai
   };
 
   const isCompleted = checkCompleteness();
-
-  // useEffect(() => {
-  //   onChange(set.id, 'isCompleted', true)
-  // }, [isCompleted]);
 
   return (
     <Stack direction="row" spacing={2} sx={{alignItems: 'center'}}>

@@ -2,14 +2,14 @@ import { useDeleteExercise } from '@/api/services/exercises/exercises.queries';
 import type { Exercise } from '@/api/services/exercises/exercises.types';
 import { routes } from '@/app/routes';
 import { Delete, Edit } from '@mui/icons-material';
-import { Button, Dialog, DialogActions, DialogTitle, Divider, IconButton, Link, ListItem, Typography } from '@mui/material';
+import { Divider, IconButton, Link, ListItem } from '@mui/material';
 import { Fragment, useState } from 'react';
 import { useNavigate } from 'react-router';
 import type { ExercisesListProps } from './Exercise.types';
 import ExerciseTypeIcon from '@/shared/components/ExerciseTypeIcon';
 import DeleteModal from '@/shared/components/DeleteModal';
 
-export default function ExercisesList ({ exercises, isLoading, isFetching }: ExercisesListProps) {
+export default function ExercisesList ({ exercises }: ExercisesListProps) {
 
   const navigate = useNavigate();
   const deleteMutation = useDeleteExercise();

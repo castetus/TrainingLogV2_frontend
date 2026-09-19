@@ -16,52 +16,54 @@ import type {
 import { orvalMutator } from '../../orvalMutator';
 
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
 
   export const getTrainings = () => {
 const getTrainings = (
 
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetTrainings200>>,) => {
       return orvalMutator<GetTrainings200>(
       {url: `/trainings`, method: 'GET'
     },
-      );
+      options);
     }
   const postTrainings = (
     postTrainingsBody: PostTrainingsBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostTrainings200>>,) => {
       return orvalMutator<PostTrainings200>(
       {url: `/trainings`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postTrainingsBody
     },
-      );
+      options);
     }
   const getTrainingsId = (
     id: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetTrainingsId200>>,) => {
       return orvalMutator<GetTrainingsId200>(
       {url: `/trainings/${id}`, method: 'GET'
     },
-      );
+      options);
     }
   const putTrainingsId = (
     id: string,
     putTrainingsIdBody: PutTrainingsIdBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PutTrainingsId200>>,) => {
       return orvalMutator<PutTrainingsId200>(
       {url: `/trainings/${id}`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: putTrainingsIdBody
     },
-      );
+      options);
     }
   const deleteTrainingsId = (
     id: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/trainings/${id}`, method: 'DELETE'
     },
-      );
+      options);
     }
   return {getTrainings,postTrainings,getTrainingsId,putTrainingsId,deleteTrainingsId}};
 export type GetTrainingsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getTrainings>['getTrainings']>>>

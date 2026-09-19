@@ -20,7 +20,7 @@ export default function TrainingPage () {
   return (
     <>
       <TrainingsList
-        trainings={trainings}
+        trainings={trainings ?? []}
         isLoading={isLoading}
         isFetching={isFetching}
       />

@@ -19,81 +19,83 @@ import type {
 import { orvalMutator } from '../../orvalMutator';
 
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
 
   export const getWorkouts = () => {
 const getWorkouts = (
 
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetWorkouts200>>,) => {
       return orvalMutator<GetWorkouts200>(
       {url: `/workouts`, method: 'GET'
     },
-      );
+      options);
     }
   const postWorkouts = (
     postWorkoutsBody: PostWorkoutsBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostWorkouts200>>,) => {
       return orvalMutator<PostWorkouts200>(
       {url: `/workouts`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postWorkoutsBody
     },
-      );
+      options);
     }
   const getWorkoutsWorkoutId = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetWorkoutsWorkoutId200>>,) => {
       return orvalMutator<GetWorkoutsWorkoutId200>(
       {url: `/workouts/${workoutId}`, method: 'GET'
     },
-      );
+      options);
     }
   const deleteWorkoutsWorkoutId = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/workouts/${workoutId}`, method: 'DELETE'
     },
-      );
+      options);
     }
   const getWorkoutsWorkoutIdDetails = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetWorkoutsWorkoutIdDetails200>>,) => {
       return orvalMutator<GetWorkoutsWorkoutIdDetails200>(
       {url: `/workouts/${workoutId}/details`, method: 'GET'
     },
-      );
+      options);
     }
   const postWorkoutsWorkoutIdPause = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostWorkoutsWorkoutIdPause200>>,) => {
       return orvalMutator<PostWorkoutsWorkoutIdPause200>(
       {url: `/workouts/${workoutId}/pause`, method: 'POST'
     },
-      );
+      options);
     }
   const postWorkoutsWorkoutIdResume = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostWorkoutsWorkoutIdResume200>>,) => {
       return orvalMutator<PostWorkoutsWorkoutIdResume200>(
       {url: `/workouts/${workoutId}/resume`, method: 'POST'
     },
-      );
+      options);
     }
   const postWorkoutsWorkoutIdFinish = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostWorkoutsWorkoutIdFinish200>>,) => {
       return orvalMutator<PostWorkoutsWorkoutIdFinish200>(
       {url: `/workouts/${workoutId}/finish`, method: 'POST'
     },
-      );
+      options);
     }
   const postWorkoutsWorkoutIdCancel = (
     workoutId: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostWorkoutsWorkoutIdCancel200>>,) => {
       return orvalMutator<PostWorkoutsWorkoutIdCancel200>(
       {url: `/workouts/${workoutId}/cancel`, method: 'POST'
     },
-      );
+      options);
     }
   return {getWorkouts,postWorkouts,getWorkoutsWorkoutId,deleteWorkoutsWorkoutId,getWorkoutsWorkoutIdDetails,postWorkoutsWorkoutIdPause,postWorkoutsWorkoutIdResume,postWorkoutsWorkoutIdFinish,postWorkoutsWorkoutIdCancel}};
 export type GetWorkoutsResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getWorkouts>['getWorkouts']>>>

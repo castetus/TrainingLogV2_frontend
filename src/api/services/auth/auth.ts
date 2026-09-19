@@ -1,7 +1,6 @@
-import { api } from '@/api/client';
 import { getAuth } from '@/api/generated/auth/auth';
 
-const authClient = getAuth(api);
+const authClient = getAuth();
 
 export const authService = {
   register: (body: Parameters<typeof authClient.postAuthRegister>[0]) =>
@@ -19,7 +18,7 @@ export const authService = {
   getMe: () =>
     authClient.getAuthMe({
       skipGlobalErrorHandler: true,
-    }).then((response) => response.data.data),
+    }).then((response) => response.data),
 
   logout: () => authClient.postAuthLogout(),
 };

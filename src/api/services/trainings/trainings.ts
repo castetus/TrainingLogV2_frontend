@@ -1,8 +1,7 @@
-import { api } from '@/api/client';
 import { getTrainings } from '@/api/generated/trainings/trainings';
 import type { CreateTrainingRequest, UpdateTrainingRequest } from './trainings.types';
 
-const trainingsClient = getTrainings(api);
+const trainingsClient = getTrainings();
 
 export const trainingsService = {
   getTrainings: () =>

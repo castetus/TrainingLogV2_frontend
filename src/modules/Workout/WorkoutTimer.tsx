@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { convertSecondsToMinutes } from "@/shared/utils/convertSecondsToMinutes";
 import type { WorkoutTimerProps } from "./Workout.types";
-import { Box, Button, IconButton, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Stack, Typography } from "@mui/material";
 import { Pause, PlayArrow, Stop } from "@mui/icons-material";
 
 export default function WorkoutTimer({ time, isRunning, onTick, status, onStatusChange }: WorkoutTimerProps) {

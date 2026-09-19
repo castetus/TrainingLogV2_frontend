@@ -17,53 +17,55 @@ import type {
 import { orvalMutator } from '../../orvalMutator';
 
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
 
   export const getExercises = () => {
 const getExercises = (
     params?: GetExercisesParams,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetExercises200>>,) => {
       return orvalMutator<GetExercises200>(
       {url: `/exercises`, method: 'GET',
         params
     },
-      );
+      options);
     }
   const postExercises = (
     postExercisesBody: PostExercisesBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostExercises200>>,) => {
       return orvalMutator<PostExercises200>(
       {url: `/exercises`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postExercisesBody
     },
-      );
+      options);
     }
   const getExercisesId = (
     id: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetExercisesId200>>,) => {
       return orvalMutator<GetExercisesId200>(
       {url: `/exercises/${id}`, method: 'GET'
     },
-      );
+      options);
     }
   const patchExercisesId = (
     id: string,
     patchExercisesIdBody: PatchExercisesIdBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PatchExercisesId200>>,) => {
       return orvalMutator<PatchExercisesId200>(
       {url: `/exercises/${id}`, method: 'PATCH',
       headers: {'Content-Type': 'application/json', },
       data: patchExercisesIdBody
     },
-      );
+      options);
     }
   const deleteExercisesId = (
     id: string,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/exercises/${id}`, method: 'DELETE'
     },
-      );
+      options);
     }
   return {getExercises,postExercises,getExercisesId,patchExercisesId,deleteExercisesId}};
 export type GetExercisesResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getExercises>['getExercises']>>>

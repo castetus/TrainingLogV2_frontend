@@ -18,7 +18,7 @@ export default function AppNavigation () {
     <BottomNavigation
       showLabels
       value={activePath}
-      onChange={(event, newValue) => {
+      onChange={(_, newValue) => {
         changeRoute(newValue);
       }}
     >

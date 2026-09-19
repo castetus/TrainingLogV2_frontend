@@ -16,68 +16,70 @@ import type {
 import { orvalMutator } from '../../orvalMutator';
 
 
+type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
 
   export const getAuth = () => {
 const postAuthRegister = (
     postAuthRegisterBody: PostAuthRegisterBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostAuthRegister200>>,) => {
       return orvalMutator<PostAuthRegister200>(
       {url: `/auth/register`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthRegisterBody
     },
-      );
+      options);
     }
   const postAuthLogin = (
     postAuthLoginBody: PostAuthLoginBody,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<PostAuthLogin200>>,) => {
       return orvalMutator<PostAuthLogin200>(
       {url: `/auth/login`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postAuthLoginBody
     },
-      );
+      options);
     }
   const getAuthMe = (
 
- ) => {
+ options?: SecondParameter<typeof orvalMutator<GetAuthMe200>>,) => {
       return orvalMutator<GetAuthMe200>(
       {url: `/auth/me`, method: 'GET'
     },
-      );
+      options);
     }
   const postAuthLogout = (
 
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/auth/logout`, method: 'POST'
     },
-      );
+      options);
     }
   const postAuthRefresh = (
 
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/auth/refresh`, method: 'POST'
     },
-      );
+      options);
     }
   const getAuthGoogle = (
 
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/auth/google`, method: 'GET'
     },
-      );
+      options);
     }
   const getAuthGoogleCallback = (
     params: GetAuthGoogleCallbackParams,
- ) => {
+ options?: SecondParameter<typeof orvalMutator<void>>,) => {
       return orvalMutator<void>(
       {url: `/auth/google/callback`, method: 'GET',
         params
     },
-      );
+      options);
     }
   return {postAuthRegister,postAuthLogin,getAuthMe,postAuthLogout,postAuthRefresh,getAuthGoogle,getAuthGoogleCallback}};
 export type PostAuthRegisterResult = NonNullable<Awaited<ReturnType<ReturnType<typeof getAuth>['postAuthRegister']>>>

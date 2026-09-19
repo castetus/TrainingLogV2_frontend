@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 
 export const useGoogleAuth = () => {
 
-  const authStore = useAuthStore();
   const navigate = useNavigate();
 
   const openGoogleWindow = () => {

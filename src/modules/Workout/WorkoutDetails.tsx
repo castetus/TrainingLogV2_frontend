@@ -7,7 +7,7 @@ import WorkoutTimer from "./WorkoutTimer";
 import { useCallback, useEffect, useState } from "react";
 import { workoutsService } from "@/api/services/workouts/workouts";
 import WorkoutSetForm from "./WorkoutSetForm";
-import type { WorkoutDetails, WorkoutExercise, WorkoutSetDetails, WorkoutStatus } from "@/api/services/workouts/workouts.types";
+import type { WorkoutDetails, WorkoutExercise, WorkoutStatus } from "@/api/services/workouts/workouts.types";
 import type { EditableSetField } from "./Workout.types";
 
 export default function WorkoutDetails () {
