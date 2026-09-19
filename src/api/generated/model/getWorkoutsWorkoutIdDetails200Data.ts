@@ -10,7 +10,7 @@ import type { GetWorkoutsWorkoutIdDetails200DataStatus } from './getWorkoutsWork
 export type GetWorkoutsWorkoutIdDetails200Data = {
   id: string;
   trainingId: string;
-  workoutName: string;
+  name: string;
   status: typeof GetWorkoutsWorkoutIdDetails200DataStatus[keyof typeof GetWorkoutsWorkoutIdDetails200DataStatus];
   durationMs: number;
   exercises: GetWorkoutsWorkoutIdDetails200DataExercisesItem[];

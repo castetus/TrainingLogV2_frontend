@@ -4,6 +4,7 @@
  * TrainingLog API
  * OpenAPI spec version: 1.0.0
  */
+import type { GetWorkoutsWorkoutIdDetails200DataExercisesItemExerciseType } from './getWorkoutsWorkoutIdDetails200DataExercisesItemExerciseType';
 import type { GetWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem } from './getWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem';
 
 export type GetWorkoutsWorkoutIdDetails200DataExercisesItem = {
@@ -11,6 +12,10 @@ export type GetWorkoutsWorkoutIdDetails200DataExercisesItem = {
   userExerciseConfigId: string;
   exerciseId: string;
   exerciseName: string;
-  order: number;
+  exerciseType: typeof GetWorkoutsWorkoutIdDetails200DataExercisesItemExerciseType[keyof typeof GetWorkoutsWorkoutIdDetails200DataExercisesItemExerciseType];
+  plannedWeight?: number;
+  plannedTime?: number;
+  plannedReps?: number;
+  position: number;
   sets: GetWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem[];
 };

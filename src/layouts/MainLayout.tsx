@@ -30,7 +30,7 @@ export default function MainLayout() {
 
         <Snackbar
           open={notificationStore.isShown}
-          autoHidedurationMs={5000}
+          autoHideDuration={5000}
           onClose={handleClose}
           message={notificationStore.text}
         />

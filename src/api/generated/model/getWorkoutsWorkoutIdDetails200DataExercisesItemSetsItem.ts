@@ -9,7 +9,7 @@ export type GetWorkoutsWorkoutIdDetails200DataExercisesItemSetsItem = {
   id: string;
   setNumber: number;
   reps?: number;
-  weight?: number;
-  time?: number;
+  weightKg?: number;
+  durationSeconds?: number;
   isCompleted: boolean;
 };

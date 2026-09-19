@@ -1,18 +1,38 @@
 import { useWorkoutDetails } from "@/api/services/workouts/workouts.queries";
 import Loader from "@/shared/components/Loader";
-import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Stack, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import WorkoutTimer from "./WorkoutTimer";
 import { useCallback, useEffect, useState } from "react";
 import { workoutsService } from "@/api/services/workouts/workouts";
-import WorkoutSetDetails from "./WorkoutSetDetails";
+import WorkoutSetForm from "./WorkoutSetForm";
+import type { WorkoutDetails, WorkoutExercise, WorkoutSetDetails, WorkoutStatus } from "@/api/services/workouts/workouts.types";
+import type { EditableSetField } from "./Workout.types";
 
 export default function WorkoutDetails () {
 
   const { workoutId } = useParams();
   const [isRunning, setIsRunning] = useState(false);
   const [time, setTime] = useState(0);
+  const [draft, setDraft] = useState<WorkoutDetails | null>(null);
+
+  const makeDraftSets = (workout: WorkoutDetails) => {
+    return {
+      ...workout,
+      exercises: 
+        workout.exercises.map((exercise) => ({
+          ...exercise,
+          sets: exercise.sets.map((set) => ({
+            ...set,
+            reps: undefined,
+            weightKg: undefined,
+            durationSeconds: undefined,
+            isCompleted: false,
+          }))
+        }))
+    }
+  }
 
   const onTick = useCallback(() => {
     setTime(prev => prev + 1);
@@ -34,17 +54,77 @@ export default function WorkoutDetails () {
     setIsRunning(true);
   };
 
+  const finishWorkout = () => {
+
+  };
+
   const { data: workout, isLoading, isFetching } = useWorkoutDetails(workoutId, {
     enabled: Boolean(workoutId),
   });
 
-  const buttonText = () => {
-    return workout?.status;
+  useEffect(() => {
+    if (!workout) return;
+
+    setDraft(makeDraftSets(workout));
+
+    if (workout.durationMs === 0) {
+      startWorkout();
+    }
+  }, [workout]);
+
+  const makeExercisePlanString = (exercise: WorkoutExercise) => {
+    let result = `${exercise.sets.length}`;
+
+    if (exercise.plannedReps) {
+      result += ` x ${exercise.plannedReps} reps`;
+    }
+
+    if (exercise.plannedWeight) {
+      result += ` x ${exercise.plannedWeight} kg`;
+    }
+
+    if (exercise.plannedTime) {
+      result += ` x ${exercise.plannedTime} s`;
+    }
+    return result;
   };
 
-  useEffect(() => {
-    startWorkout();
-  }, []);
+  const onStatusChange = (status: WorkoutStatus) => {
+    if (status === 'paused') {
+      pauseWorkout();
+      return;
+    }
+    if (status === 'in_progress') {
+      resumeWorkout();
+      return;
+    }
+    if (status === 'finished') {
+      finishWorkout();
+      return;
+    }
+  };
+
+  const handleSetChange = (
+    setId: string,
+    field: keyof EditableSetField,
+    value: string | boolean,
+  ) => {
+    console.log(field, value)
+    setDraft(prev => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        exercises: prev.exercises.map((exercise) => ({
+          ...exercise,
+          sets: exercise.sets.map((set) =>
+            set.id === setId
+              ? { ...set, [field]: Number(value) }
+              : set
+          ),
+        })),
+      };
+    });
+  };
 
   if (isLoading || isFetching) {
     return (
@@ -54,23 +134,27 @@ export default function WorkoutDetails () {
   
   return (
     <Stack spacing={2}>
-      <Button variant="contained">
         <Box>
-          {buttonText()}
-          <WorkoutTimer time={time} isRunning={isRunning} onTick={onTick} />
+          { workout && <WorkoutTimer
+            time={time}
+            isRunning={isRunning}
+            onTick={onTick}
+            status={workout.status}
+            onStatusChange={onStatusChange}
+          /> }
         </Box>
-      </Button>
-        {workout?.exercises.map((exercise) => {
+        {draft?.exercises.map((exercise) => {
         return (
           <Accordion key={exercise.id}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
             >
-              <Typography component="span">{exercise.exerciseName}</Typography>
+              <Typography component="span" sx={{marginRight: '8px'}}>{exercise.exerciseName}</Typography>
+              <Typography component="span">{makeExercisePlanString(exercise)}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               {exercise.sets.map((set) => {
-                return <WorkoutSetDetails set={set}/>
+                return <WorkoutSetForm set={set} type={exercise.exerciseType} onChange={handleSetChange}/>
               })}
             </AccordionDetails>
           </Accordion>
