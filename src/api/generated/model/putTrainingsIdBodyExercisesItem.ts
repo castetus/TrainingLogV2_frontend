@@ -8,7 +8,7 @@
 export type PutTrainingsIdBodyExercisesItem = {
   exerciseId: string;
   position: number;
-  plannedSets?: number;
+  plannedSets: number;
   plannedReps?: number;
   plannedWeight?: number;
   plannedTime?: number;
