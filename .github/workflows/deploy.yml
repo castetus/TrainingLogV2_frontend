@@ -35,13 +35,20 @@ jobs:
             -t $IMAGE_NAME:latest \
             .
 
-      - name: Push Docker image
+      - name: Deploy to VPS
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
         run: |
+          echo "Preparing SSH"
           mkdir -p ~/.ssh
           echo "$VPS_SSH_KEY" > ~/.ssh/traininglog_deploy
           chmod 600 ~/.ssh/traininglog_deploy
 
+          echo "Adding host key"
           ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
 
-          ssh -i ~/.ssh/traininglog_deploy "$VPS_USER@$VPS_HOST" \
+          echo "Connecting to VPS"
+          ssh -v -i ~/.ssh/traininglog_deploy "$VPS_USER@$VPS_HOST" \
             'cd ~/training-log/deploy && ./deploy-frontend.sh'
