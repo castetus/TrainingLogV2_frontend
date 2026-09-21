@@ -17,6 +17,7 @@ export const useGoogleAuth = () => {
 
   useEffect(() => {
     const handler = async (event: MessageEvent) => {
+      console.log(event, import.meta.env)
       if (event.origin !== import.meta.env.VITE_API_URL) return;
       if (event.data?.type !== 'GOOGLE_AUTH_SUCCESS') return;
   
